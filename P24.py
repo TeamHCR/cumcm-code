@@ -328,7 +328,7 @@ class SA:
         self.time_stop = time.time()
         if self.count > 0:
             print(
-                f"speed = {(self.time_stop - self.time_start) / self.count}, duration = {self.time_stop - self.time_start}, count = {self.count}")
+                f"speed = {self.count * 60 / (self.time_stop - self.time_start)} it/min, duration = {self.time_stop - self.time_start}, count = {self.count}")
 
     def run_random(self):
         self.start_run_perf()
@@ -378,6 +378,7 @@ class SA:
     def run_random_climb(self):
         self.start_run_perf()
         last_f = parallel_evaluate([self.func(self.sx, self.sy)])[0]
+        print("start:", f"F={last_f}, x={self.sx}, y={self.sy}")
         try:
             while self.T > self.Tf:
                 new_pos = self.generate_directions()
@@ -406,6 +407,7 @@ class SA:
             print(f"x={self.sx}, y={self.sy}, F={last_f}")
         except KeyboardInterrupt:
             thread_pool_exit()
+        print("Temp now:", self.T, f"F={last_f}, tot={tot}, x={self.sx}, y={self.sy}, count={self.count}")
         self.stop_run_perf()
 
 session_g = WolframLanguageSession() if not use_parallelize else None
@@ -413,9 +415,11 @@ session_g = WolframLanguageSession() if not use_parallelize else None
 if __name__ == '__main__':
     # x=32241.41596050716, y=100000, F=2979.836002974773
     # Temp now: 13.7214 F=1726.2186418442523, tot=43, x=42227.56762547424, y=28799.10473477897, count=2
+    
+    # Temp now: 8.218514947124781 F=1727.2570404255514, tot=325, x=43715.00058345546, y=25654.693610991686, count=53
     thread_num = 6
     thread_pool_init(command=P4, name="P4")
     # sa = SA(func, x_range=[20000, 40000], y_range=[90000, 100000], Tf=10, sx=32241.41596050716, sy=100000)
-    sa = SA(func, x_range=[0, 100000], y_range=[0, 100000], Tf=1e-1, sx=42227.56762547424, sy=28799.10473477897)
+    sa = SA(func, x_range=[0, 100000], y_range=[0, 100000], Tf=1e-1, sx=43715.00058345546, sy=25654.693610991686)
     sa.run_random_climb()
     sa.display()
