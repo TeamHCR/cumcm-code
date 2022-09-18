@@ -463,7 +463,7 @@ if __name__ == '__main__':
         sa = SA(func, x_range=[0, 100000], y_range=[0, 100000], Tf=1e-1)
         thread_pool_init(command=P4, name=thread_cmd_name)
     elif thread_cmd_name == "P21":
-        # x=36909.37071462201, y=0.5429676598546479, F=2295.7213258322026
+        # x=36909.37071462201, F=2295.7213258322026
         sa = SA(func, x_range=[0, 100000], y_range=[0, 1], Tf=1e-1, overflow=300)
         thread_pool_init(command=P21, name=thread_cmd_name)
     else:
