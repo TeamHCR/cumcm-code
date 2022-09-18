@@ -6,14 +6,7 @@
    "languageId": "wolfram",
    "outputs": [],
    "metadata": {},
-   "executionSummary": {
-    "timing": {
-     "startTime": 1663496625926,
-     "endTime": 1663496625996
-    },
-    "executionOrder": 1,
-    "success": true
-   }
+   "executionSummary": {}
   },
   {
    "kind": 1,
@@ -65,14 +58,7 @@
     }
    ],
    "metadata": {},
-   "executionSummary": {
-    "timing": {
-     "startTime": 1663496625997,
-     "endTime": 1663496636296
-    },
-    "executionOrder": 2,
-    "success": true
-   }
+   "executionSummary": {}
   },
   {
    "kind": 2,
@@ -115,14 +101,7 @@
     }
    ],
    "metadata": {},
-   "executionSummary": {
-    "timing": {
-     "startTime": 1663496636297,
-     "endTime": 1663496640320
-    },
-    "executionOrder": 9,
-    "success": true
-   }
+   "executionSummary": {}
   },
   {
    "kind": 2,
@@ -148,14 +127,7 @@
     }
    ],
    "metadata": {},
-   "executionSummary": {
-    "timing": {
-     "startTime": 1663496640322,
-     "endTime": 1663496641233
-    },
-    "executionOrder": 13,
-    "success": true
-   }
+   "executionSummary": {}
   },
   {
    "kind": 1,
@@ -257,14 +229,7 @@
     }
    ],
    "metadata": {},
-   "executionSummary": {
-    "timing": {
-     "startTime": 1663496641235,
-     "endTime": 1663496644003
-    },
-    "executionOrder": 14,
-    "success": true
-   }
+   "executionSummary": {}
   },
   {
    "kind": 1,
@@ -295,14 +260,7 @@
    "languageId": "wolfram",
    "outputs": [],
    "metadata": {},
-   "executionSummary": {
-    "timing": {
-     "startTime": 1663496644004,
-     "endTime": 1663496644352
-    },
-    "executionOrder": 23,
-    "success": true
-   }
+   "executionSummary": {}
   },
   {
    "kind": 2,
@@ -328,14 +286,7 @@
     }
    ],
    "metadata": {},
-   "executionSummary": {
-    "timing": {
-     "startTime": 1663496644353,
-     "endTime": 1663496693036
-    },
-    "executionOrder": 28,
-    "success": true
-   }
+   "executionSummary": {}
   },
   {
    "kind": 2,
@@ -361,14 +312,7 @@
     }
    ],
    "metadata": {},
-   "executionSummary": {
-    "timing": {
-     "startTime": 1663496693038,
-     "endTime": 1663496738342
-    },
-    "executionOrder": 30,
-    "success": true
-   }
+   "executionSummary": {}
   },
   {
    "kind": 1,
@@ -385,14 +329,7 @@
    "languageId": "wolfram",
    "outputs": [],
    "metadata": {},
-   "executionSummary": {
-    "timing": {
-     "startTime": 1663496738343,
-     "endTime": 1663496738779
-    },
-    "executionOrder": 31,
-    "success": true
-   }
+   "executionSummary": {}
   },
   {
    "kind": 2,
@@ -400,14 +337,7 @@
    "languageId": "wolfram",
    "outputs": [],
    "metadata": {},
-   "executionSummary": {
-    "timing": {
-     "startTime": 1663496738779,
-     "endTime": 1663496754737
-    },
-    "executionOrder": 38,
-    "success": true
-   }
+   "executionSummary": {}
   },
   {
    "kind": 2,
@@ -450,14 +380,7 @@
     }
    ],
    "metadata": {},
-   "executionSummary": {
-    "timing": {
-     "startTime": 1663496754738,
-     "endTime": 1663496755796
-    },
-    "executionOrder": 41,
-    "success": true
-   }
+   "executionSummary": {}
   },
   {
    "kind": 1,
@@ -474,14 +397,7 @@
    "languageId": "wolfram",
    "outputs": [],
    "metadata": {},
-   "executionSummary": {
-    "timing": {
-     "startTime": 1663496755797,
-     "endTime": 1663496757710
-    },
-    "executionOrder": 44,
-    "success": true
-   }
+   "executionSummary": {}
   },
   {
    "kind": 2,
@@ -489,14 +405,7 @@
    "languageId": "wolfram",
    "outputs": [],
    "metadata": {},
-   "executionSummary": {
-    "timing": {
-     "startTime": 1663496757711,
-     "endTime": 1663496757782
-    },
-    "executionOrder": 75,
-    "success": true
-   }
+   "executionSummary": {}
   },
   {
    "kind": 2,
@@ -522,14 +431,7 @@
     }
    ],
    "metadata": {},
-   "executionSummary": {
-    "timing": {
-     "startTime": 1663496757783,
-     "endTime": 1663496767643
-    },
-    "executionOrder": 76,
-    "success": true
-   }
+   "executionSummary": {}
   },
   {
    "kind": 2,
@@ -606,14 +508,7 @@
     }
    ],
    "metadata": {},
-   "executionSummary": {
-    "timing": {
-     "startTime": 1663496767644,
-     "endTime": 1663496771146
-    },
-    "executionOrder": 77,
-    "success": true
-   }
+   "executionSummary": {}
   },
   {
    "kind": 2,
@@ -656,14 +551,7 @@
     }
    ],
    "metadata": {},
-   "executionSummary": {
-    "timing": {
-     "startTime": 1663496771147,
-     "endTime": 1663496771551
-    },
-    "executionOrder": 81,
-    "success": true
-   }
+   "executionSummary": {}
   },
   {
    "kind": 2,
@@ -706,14 +594,7 @@
     }
    ],
    "metadata": {},
-   "executionSummary": {
-    "timing": {
-     "startTime": 1663496771551,
-     "endTime": 1663496774039
-    },
-    "executionOrder": 85,
-    "success": true
-   }
+   "executionSummary": {}
   },
   {
    "kind": 1,
@@ -725,33 +606,19 @@
   },
   {
    "kind": 2,
-   "value": "Clear[\"Global`*\"];\n(* AG长度 *)\nd = 1.40792;\n(* 弹簧原长度 *)\nl0 = 0.5; \n(* 振子质量 *)\nm = 2433; \n(* 弹簧劲度系数 *)\nk = 80000;\n(* 小g *)\ng = 9.8;\n(* 弹簧旋转刚度 *)\nkrot = 250000;\n(* 浮子质量 *)\nM = 4866;\n(* 垂荡兴波阻尼系数 *)\nc0 = 528.5018;\n(* 纵摇附加转动惯量 *)\nI0 = 7142.493;\n(* 纵摇激励力矩振幅 *)\nL = 2140;\n(* 入射波浪频率 *)\nw = 1.9806;\n(* 垂荡激励力振幅 *)\nf = 1760;\n(* 浮子转动惯量 *)\nIa = 8399.2;\n\n(* 垂荡附加质量 *)\nm0 = 1091.099;\n(* 纵摇兴波阻尼力矩系数 *)\ncr0 = 1655.909;\n(* 纵摇静水恢复力矩系数 *)\nMrec = 8890.7;\n(* 海水密度 *)\nrho = 1025;\n\n(* 垂荡静水恢复力(浮力) *)\nFj[t_] := (5.2609+1.86007*Sec[th[t]]-Pi*zg[t]*Sec[th[t]]) * rho * g;\n(* 激励力 *)\nFwave[t_] := f * Cos[w*t];\n(* 振子转动惯量 *)\n(* Ib[t_] := 258.149 + 774.448 l[t] + 1548.9 l[t]^2; *)\n(* Ib[t_] := MomentOfInertia[Cylinder[{{0, 0, 0}, {0.5, 0, 0}}, 0.5], {l[t] + 0.5, 0, 0}, {0, 0, 1}] *)\nIb[t_] := m / 12 * (4*0.5^2-12*0.5*(0.5+l[t])+3*1^2+12*(0.5+l[t])^2)\n(* 纵摇激励力矩 *)\nMwave[t_] := L * Cos[w*t];\n(* theta2 = theta1 + gamma *)\nth2[t_] := th[t] + ga[t]; \n(* P点x座标 *)\nxp[t_] := d*Sin[th[t]] - l[t]*Sin[th2[t]]; \n(* P点z座标 *)\nzp[t_] := zg[t] - d*Cos[th[t]] + l[t]*Cos[th2[t]]; \n(* PTO系统的力 *)\nFpto[t_, c_] := -k*(l[t] - l0) - c*l'[t];\n(* PTO系统的力矩 *)\nMpto[t_, crot_] := -krot*ga[t] - crot*ga'[t];\n\nstart = 200;\nstop = start + 20 / w * 2 * Pi;\ndim = 0.1;",
+   "value": "Clear[\"Global`*\"];\n(* AG长度 *)\nd = 1.40792;\n(* 弹簧原长度 *)\nl0 = 0.5; \n(* 振子质量 *)\nm = 2433; \n(* 弹簧劲度系数 *)\nk = 80000;\n(* 小g *)\ng = 9.8;\n(* 弹簧旋转刚度 *)\nkrot = 250000;\n(* 浮子质量 *)\nM = 4866;\n(* 垂荡兴波阻尼系数 *)\nc0 = 528.5018;\n(* 纵摇附加转动惯量 *)\nI0 = 7142.493;\n(* 纵摇激励力矩振幅 *)\nL = 2140;\n(* 入射波浪频率 *)\nw = 1.9806;\n(* 垂荡激励力振幅 *)\nf = 1760;\n(* 浮子转动惯量 *)\nIa = 8399.2;\n\n(* 垂荡附加质量 *)\nm0 = 1091.099;\n(* 纵摇兴波阻尼力矩系数 *)\ncr0 = 1655.909;\n(* 纵摇静水恢复力矩系数 *)\nMrec = 8890.7;\n(* 海水密度 *)\nrho = 1025;\n\n(* 垂荡静水恢复力(浮力) *)\nFj[t_] := (5.2609+1.86007*Sec[th[t]]-Pi*zg[t]*Sec[th[t]]) * rho * g;\n(* 激励力 *)\nFwave[t_] := f * Cos[w*t];\n(* 振子转动惯量 *)\n(* Ib[t_] := 258.149 + 774.448 l[t] + 1548.9 l[t]^2; *)\n(* Ib[t_] := MomentOfInertia[Cylinder[{{0, 0, 0}, {0.5, 0, 0}}, 0.5], {l[t] + 0.5, 0, 0}, {0, 0, 1}] *)\nIb[t_] := m / 12 * (4*0.5^2-12*0.5*(0.5+l[t])+3*1^2+12*(0.5+l[t])^2)\n(* 纵摇激励力矩 *)\nMwave[t_] := L * Cos[w*t];\n(* theta2 = theta1 + gamma *)\nth2[t_] := th[t] + ga[t]; \n(* P点x座标 *)\nxp[t_] := d*Sin[th[t]] - l[t]*Sin[th2[t]]; \n(* P点z座标 *)\nzp[t_] := zg[t] - d*Cos[th[t]] + l[t]*Cos[th2[t]]; \n(* PTO系统的力 *)\nFpto[t_, c_] := -k*(l[t] - l0) - c*l'[t];\n(* PTO系统的力矩 *)\nMpto[t_, crot_] := -krot*ga[t] - crot*ga'[t];\n\nstart = 100;\nstop = start + 5 / w * 2 * Pi;\ndim = 0.2;",
    "languageId": "wolfram",
    "outputs": [],
    "metadata": {},
-   "executionSummary": {
-    "timing": {
-     "startTime": 1663497556588,
-     "endTime": 1663497558434
-    },
-    "executionOrder": 168,
-    "success": true
-   }
+   "executionSummary": {}
   },
   {
    "kind": 2,
-   "value": "P4[c_, crot_] := (Sum[(c * (l'[t]^2) + crot * (ga'[t]^2)) * dim, {t, start, stop, dim}] /. NDSolve[{\n    m*xp''[t] == -Fpto[t,c]*Sin[th2[t]] + Fab[t]*Cos[th2[t]], \n    m*zp''[t] == Fpto[t,c]*Cos[th2[t]] - m*g + Fab[t]*Sin[th2[t]], \n    Ib[t]*th2''[t] == Mpto[t,crot] + Fab[t]*l[t],\n    M*zg''[t] == Fwave[t] + Fj[t] - M*g - Fpto[t,c]*Cos[th2[t]] - Fab[t]*Sin[th2[t]] - m0*zg''[t] - c0*zg'[t],\n    Ia*th''[t] == Mwave[t] - Mpto[t,crot] + Fab[t]*d*Cos[th[t]]*Cos[th2[t]] - Fab[t]*d*Sin[th[t]]*Sin[th2[t]] - I0*th''[t] - cr0*th'[t] - Mrec*th[t],\n    th'[0] == th[0] == ga[0] == ga'[0] == l'[0] == zg'[0] == 0, l[0] == l0-m/k, zg[0] == 0}, {th, ga, zg, l}, {t, start, stop}]) / (stop - start)",
+   "value": "P4[c_, crot_] := ((Sum[(c * (l'[t]^2) + crot * (ga'[t]^2)) * dim, {t, start, stop, dim}] /. NDSolve[{\n    m*xp''[t] == -Fpto[t,c]*Sin[th2[t]] + Fab[t]*Cos[th2[t]], \n    m*zp''[t] == Fpto[t,c]*Cos[th2[t]] - m*g + Fab[t]*Sin[th2[t]], \n    Ib[t]*th2''[t] == Mpto[t,crot] + Fab[t]*l[t],\n    M*zg''[t] == Fwave[t] + Fj[t] - M*g - Fpto[t,c]*Cos[th2[t]] - Fab[t]*Sin[th2[t]] - m0*zg''[t] - c0*zg'[t],\n    Ia*th''[t] == Mwave[t] - Mpto[t,crot] + Fab[t]*d*Cos[th[t]]*Cos[th2[t]] - Fab[t]*d*Sin[th[t]]*Sin[th2[t]] - I0*th''[t] - cr0*th'[t] - Mrec*th[t],\n    th'[0] == th[0] == ga[0] == ga'[0] == l'[0] == zg'[0] == 0, l[0] == l0-m/k, zg[0] == 0}, {th, ga, zg, l}, {t, start, stop}]) / (stop - start))",
    "languageId": "wolfram",
    "outputs": [],
    "metadata": {},
-   "executionSummary": {
-    "timing": {
-     "startTime": 1663497558435,
-     "endTime": 1663497558510
-    },
-    "executionOrder": 198,
-    "success": true
-   }
+   "executionSummary": {}
   },
   {
    "kind": 2,
@@ -759,14 +626,7 @@
    "languageId": "wolfram",
    "outputs": [],
    "metadata": {},
-   "executionSummary": {
-    "timing": {
-     "startTime": 1663497558510,
-     "endTime": 1663497558582
-    },
-    "executionOrder": 199,
-    "success": true
-   }
+   "executionSummary": {}
   },
   {
    "kind": 2,
@@ -1999,14 +1859,7 @@
     }
    ],
    "metadata": {},
-   "executionSummary": {
-    "timing": {
-     "startTime": 1663497559004,
-     "endTime": 1663497598663
-    },
-    "executionOrder": 200,
-    "success": true
-   }
+   "executionSummary": {}
   },
   {
    "kind": 2,
@@ -2066,14 +1919,7 @@
     }
    ],
    "metadata": {},
-   "executionSummary": {
-    "timing": {
-     "startTime": 1663497598663,
-     "endTime": 1663497599795
-    },
-    "executionOrder": 201,
-    "success": true
-   }
+   "executionSummary": {}
   },
   {
    "kind": 2,

@@ -8,22 +8,14 @@ stop=40/omega*2*Pi;
 s=NDSolve[{m*x2''[t]==k(x1[t]-x2[t])+c(x1'[t]-x2'[t]),f*Cos[omega*t]==k(x1[t]-x2[t])+c(x1'[t]-x2'[t])+k1*x1[t]+c0*x1'[t]+m0*x1''[t]+M*x1''[t],x1[0]==x2[0]==x1'[0]==x2'[0]==0},{x1,x2},{t,0,Max[stop,100]}];
 Plot[Evaluate[{x1[t],x2[t]}/.s],{t,0,Min[stop,100]},PlotLegends->Placed[{"x1","x2"},{1,0.5}],PlotStyle->{Directive[Blue,Thick],Directive[Orange,Dashed]}]
 Plot[Evaluate[{x1[t]-x2[t],x1'[t]-x2'[t]}/.s],{t,0,Min[stop,100]},PlotLegends->Placed[{"\[CapitalDelta]x","\[CapitalDelta]v"},{1,0.5}]]
-Out[7]=  
-Out[8]=  
+
 targets={10,20,40,60,100};
 data=Table[{i,First[x1[i]/.s],First[x1'[i]/.s],First[x2[i]/.s],First[x2'[i]/.s]},{i,targets}];
 Grid[data,Frame->All]
 Export["~/cumcm/cumcm-code/P11-paper.xlsx",data]
-Out[11]=  10	-0.190711	-0.641009	-0.211679	-0.693954
-20	-0.590684	-0.240952	-0.634248	-0.272776
-40	0.285375	0.312971	0.2965	0.332912
-60	-0.314504	-0.479455	-0.331434	-0.515728
-100	-0.0836137	-0.604211	-0.0840669	-0.643001
 
-
-Out[12]=  ~/cumcm/cumcm-code/P11-paper.xlsx
 Export["~/cumcm/cumcm-code/P11.xlsx",Flatten[Table[{i,x1[i],x1'[i],x2[i],x2'[i]}/.s,{i,Range[0,40/omega*2*Pi,0.2]}],1]]
-Out[13]=  ~/cumcm/cumcm-code/P11.xlsx
+
 第 (2) 小问
 cv2[v_]:=10000*Sqrt[Abs[v]]
 s=NDSolve[{m*x2''[t]==k(x1[t]-x2[t])+cv2[x2'[t]]*(x1'[t]-x2'[t]),f*Cos[omega*t]==k(x1[t]-x2[t])+cv2[x2'[t]]*(x1'[t]-x2'[t])+k1*x1[t]+c0*x1'[t]+m0*x1''[t]+M*x1''[t],x1[0]==x2[0]==x1'[0]==x2'[0]==0},{x1,x2},{t,0,Max[stop,100]}];
@@ -36,17 +28,7 @@ Grid[data,Frame->All]
 Export["~/cumcm/cumcm-code/P12-paper.xlsx",data]
 Plot[Evaluate[{x1[t]-x2[t],x1'[t]-x2'[t]}/.s],{t,0,Min[stop,100]},PlotLegends->Placed[{"\[CapitalDelta]x","\[CapitalDelta]v"},{1,0.5}]]
 Export["~/cumcm/cumcm-code/P12.xlsx",Flatten[Table[{i,x1[i],x1'[i],x2[i],x2'[i]}/.s,{i,Range[0,40/omega*2*Pi,0.2]}],1]]
-Out[16]=  
-Out[19]=  10	-0.191991	-0.644618	-0.213781	-0.701741
-20	-0.59419	-0.245593	-0.640176	-0.28171
-40	0.282215	0.306276	0.294026	0.325993
-60	-0.317233	-0.482805	-0.335615	-0.520822
-100	-0.0848248	-0.605817	-0.0862466	-0.645578
 
-
-Out[20]=  ~/cumcm/cumcm-code/P12-paper.xlsx
-Out[21]=  
-Out[22]=  ~/cumcm/cumcm-code/P12.xlsx
 第 2 题
 第 (1) 小问
 Clear["Global`*"];
@@ -56,9 +38,8 @@ start=110;stop=start+20*1/omega*2*Pi;dim=0.01;
 P21[cm2_]:=(Sum[cm2*((x1'[i]-x2'[i])^2)*dim,{i,start,stop,dim}]/.NDSolve[{m*x2''[t]==k*(x1[t]-x2[t])+cm2*(x1'[t]-x2'[t]),f*Cos[omega*t]==k*(x1[t]-x2[t])+cm2*(x1'[t]-x2'[t])+k1*x1[t]+c0*x1'[t]+m0*x1''[t]+M*x1''[t],x1[0]==x2[0]==x1'[0]==x2'[0]==0},{x1,x2},{t,start,stop}])/(stop-start)
 DrawP21[pStart_,pStop_,pStepNum_,name_]:=ListLinePlot[Table[{i,First[P21[i]]},{i,Range[pStart,pStop,(pStop-pStart)/pStepNum]}],PlotLegends->Placed[name,{1,0.5}]]
 DrawP21[0,100000,100,"P(c)"]
-Out[29]=  
 DrawP21[37250,37270,100,"P(c)"]
-Out[30]=  
+
 第 (2) 小问
 Clear["Global`*"];
 M=4866;m=2433;k=80000;c=10000;omega=2.2143;k1=1025*9.8*Pi;
@@ -75,8 +56,7 @@ ss=Table[{i[[1]],i[[2]]/10000,i[[3]]},{i,Flatten[s,1]}];
 ListPlot3D[ss]
 ListContourPlot[ss]
 (*ListDensityPlot[ss]*)
-Out[42]=  
-Out[43]=  
+
 第 3 题
 Clear["Global`*"];
 (*AG长度*)
@@ -148,38 +128,18 @@ Plot[{th'[t]/.s,ga'[t]/.s},{t,start,Min[stop,100]},PlotLegends->Placed[{"\[Theta
 Plot[{l[t]/.s,zg[t]/.s},{t,start,Min[stop,100]},PlotLegends->Placed[{"l","Zg"},{1,0.5}]]
 Plot[{l'[t]/.s,zg'[t]/.s},{t,start,Min[stop,100]},PlotLegends->Placed[{"l'","Zg'"},{1,0.5}]]
 (*Plot[Fj[t]/.s,{t,0,stop},PlotLegends->{"F浮"}]*)
-Out[77]=  
-Out[78]=  
-Out[79]=  
-Out[80]=  
+
 targets={10,20,40,60,100};
 data=Table[{t,First[zg[t]/.s],First[zg'[t]/.s],First[th[t]/.s],First[th'[t]/.s],First[l[t]/.s],First[l'[t]/.s],First[ga[t]/.s],First[ga'[t]/.s]},{t,targets}];
 Grid[data,Frame->All]
 Export["~/cumcm/cumcm-code/P3-paper.xlsx",data]
-Out[83]=  10	-0.0664534	-0.363564	0.222059	-0.26764	0.209732	-0.0810898	0.00334286	-0.00609852
-20	0.136743	0.322317	0.820831	0.318459	0.286025	0.107976	0.020897	0.0150175
-40	-0.0579963	0.256131	0.385817	0.0874376	0.201236	0.00638375	0.00603618	0.00134654
-60	0.287777	-0.0204315	0.924709	0.167332	0.328744	0.0752958	0.025978	0.01213
-100	0.305204	0.107308	0.886723	0.366978	0.30858	0.119527	0.0228937	0.0187666
 
-
-Out[84]=  ~/cumcm/cumcm-code/P3-paper.xlsx
 dl[t_]:=l[t]-l0
 data=Table[{t,First[ff[t]/.s]},{ff,{zg,zg',th,th',dl,l',ga,ga'}},{t,0,40/w*2*Pi,0.2}];
 save=Table[{t,First[zg[t]/.s],First[zg'[t]/.s],First[th[t]/.s],First[th'[t]/.s],First[dl[t]/.s],First[l'[t]/.s],First[ga[t]/.s],First[ga'[t]/.s]},{t,0,40/w,0.2}];
 ListLinePlot[data,PlotLegends->{Zg,Zg',theta,theta',dl,l',gamma,gamma'}]
 Export["~/cumcm/cumcm-code/P3.xlsx",save]
-Out[88]=  	Zg
-	Zg^\[Prime]
-	theta
-	theta^\[Prime]
-	dl
-	l^\[Prime]
-	gamma
-	gamma^\[Prime]
 
-
-Out[89]=  ~/cumcm/cumcm-code/P3.xlsx
 第4题
 Clear["Global`*"];
 (*AG长度*)
@@ -239,53 +199,15 @@ Fpto[t_,c_]:=-k*(l[t]-l0)-c*l'[t];
 (*PTO系统的力矩*)
 Mpto[t_,crot_]:=-krot*ga[t]-crot*ga'[t];
 
-start=300;
-stop=start+10;
-dim=0.1;
-P4[c_,crot_]:=Sum[(c*(l'[t]^2)+crot*(ga'[t]^2))*dim,{t,start,stop,dim}]/.NDSolve[{m*xp''[t]==-Fpto[t,c]*Sin[th2[t]]+Fab[t]*Cos[th2[t]],m*zp''[t]==Fpto[t,c]*Cos[th2[t]]-m*g+Fab[t]*Sin[th2[t]],Ib[t]*th2''[t]==Mpto[t,crot]+Fab[t]*l[t],M*zg''[t]==Fwave[t]+Fj[t]-M*g-Fpto[t,c]*Cos[th2[t]]-Fab[t]*Sin[th2[t]]-m0*zg''[t]-c0*zg'[t],Ia*th''[t]==Mwave[t]-Mpto[t,crot]+Fab[t]*d*Cos[th[t]]*Cos[th2[t]]-Fab[t]*d*Sin[th[t]]*Sin[th2[t]]-I0*th''[t]-cr0*th'[t]-Mrec*th[t],th'[0]==th[0]==ga[0]==ga'[0]==l'[0]==zg'[0]==0,l[0]==l0-m/k,zg[0]==0},{th,ga,zg,l},{t,start,stop}]
+start=100;
+stop=start+5/w*2*Pi;
+dim=0.2;
+P4[c_,crot_]:=((Sum[(c*(l'[t]^2)+crot*(ga'[t]^2))*dim,{t,start,stop,dim}]/.NDSolve[{m*xp''[t]==-Fpto[t,c]*Sin[th2[t]]+Fab[t]*Cos[th2[t]],m*zp''[t]==Fpto[t,c]*Cos[th2[t]]-m*g+Fab[t]*Sin[th2[t]],Ib[t]*th2''[t]==Mpto[t,crot]+Fab[t]*l[t],M*zg''[t]==Fwave[t]+Fj[t]-M*g-Fpto[t,c]*Cos[th2[t]]-Fab[t]*Sin[th2[t]]-m0*zg''[t]-c0*zg'[t],Ia*th''[t]==Mwave[t]-Mpto[t,crot]+Fab[t]*d*Cos[th[t]]*Cos[th2[t]]-Fab[t]*d*Sin[th[t]]*Sin[th2[t]]-I0*th''[t]-cr0*th'[t]-Mrec*th[t],th'[0]==th[0]==ga[0]==ga'[0]==l'[0]==zg'[0]==0,l[0]==l0-m/k,zg[0]==0},{th,ga,zg,l},{t,start,stop}])/(stop-start))
 CalcP4[kStart_,kStop_,kStepNum_,eStart_,eStop_,eStepNum_]:=Parallelize[Table[{pe,ppk,First[P4[ppk,pe]]},{ppk,Range[kStart,kStop,(kStop-kStart)/kStepNum]},{pe,Range[eStart,eStop,(eStop-eStart)/eStepNum]}]]
 s=CalcP4[0,100000,8,0,100000,8];
-(kernel 5) NDSolve::pdord :  Some of the functions have zero differential order, so the equations will be solved as a system of differential-algebraic equations.
-(kernel 6) NDSolve::pdord :  Some of the functions have zero differential order, so the equations will be solved as a system of differential-algebraic equations.
-(kernel 1) NDSolve::pdord :  Some of the functions have zero differential order, so the equations will be solved as a system of differential-algebraic equations.
-(kernel 4) NDSolve::pdord :  Some of the functions have zero differential order, so the equations will be solved as a system of differential-algebraic equations.
-(kernel 7) NDSolve::pdord :  Some of the functions have zero differential order, so the equations will be solved as a system of differential-algebraic equations.
-(kernel 8) NDSolve::pdord :  Some of the functions have zero differential order, so the equations will be solved as a system of differential-algebraic equations.
-(kernel 9) NDSolve::pdord :  Some of the functions have zero differential order, so the equations will be solved as a system of differential-algebraic equations.
-(kernel 2) NDSolve::pdord :  Some of the functions have zero differential order, so the equations will be solved as a system of differential-algebraic equations.
-(kernel 3) NDSolve::pdord :  Some of the functions have zero differential order, so the equations will be solved as a system of differential-algebraic equations.
-(kernel 4) NDSolve::pdord :  Some of the functions have zero differential order, so the equations will be solved as a system of differential-algebraic equations.
-(kernel 5) NDSolve::pdord :  Some of the functions have zero differential order, so the equations will be solved as a system of differential-algebraic equations.
-(kernel 6) NDSolve::pdord :  Some of the functions have zero differential order, so the equations will be solved as a system of differential-algebraic equations.
-(kernel 8) NDSolve::pdord :  Some of the functions have zero differential order, so the equations will be solved as a system of differential-algebraic equations.
-(kernel 2) NDSolve::pdord :  Some of the functions have zero differential order, so the equations will be solved as a system of differential-algebraic equations.
-(kernel 5) NDSolve::pdord :  Some of the functions have zero differential order, so the equations will be solved as a system of differential-algebraic equations.
-(kernel 6) NDSolve::pdord :  Some of the functions have zero differential order, so the equations will be solved as a system of differential-algebraic equations.
-(kernel 2) NDSolve::pdord :  Some of the functions have zero differential order, so the equations will be solved as a system of differential-algebraic equations.
-(kernel 4) NDSolve::pdord :  Some of the functions have zero differential order, so the equations will be solved as a system of differential-algebraic equations.
-(kernel 8) NDSolve::pdord :  Some of the functions have zero differential order, so the equations will be solved as a system of differential-algebraic equations.
-(kernel 5) General::stop :  Further output of NDSolve::pdord will be suppressed during this calculation.
-(kernel 6) General::stop :  Further output of NDSolve::pdord will be suppressed during this calculation.
-(kernel 2) General::stop :  Further output of NDSolve::pdord will be suppressed during this calculation.
-(kernel 3) NDSolve::pdord :  Some of the functions have zero differential order, so the equations will be solved as a system of differential-algebraic equations.
-(kernel 4) General::stop :  Further output of NDSolve::pdord will be suppressed during this calculation.
-(kernel 7) NDSolve::pdord :  Some of the functions have zero differential order, so the equations will be solved as a system of differential-algebraic equations.
-(kernel 8) General::stop :  Further output of NDSolve::pdord will be suppressed during this calculation.
-(kernel 9) NDSolve::pdord :  Some of the functions have zero differential order, so the equations will be solved as a system of differential-algebraic equations.
-(kernel 3) NDSolve::pdord :  Some of the functions have zero differential order, so the equations will be solved as a system of differential-algebraic equations.
-(kernel 3) General::stop :  Further output of NDSolve::pdord will be suppressed during this calculation.
-(kernel 9) NDSolve::pdord :  Some of the functions have zero differential order, so the equations will be solved as a system of differential-algebraic equations.
-(kernel 7) NDSolve::pdord :  Some of the functions have zero differential order, so the equations will be solved as a system of differential-algebraic equations.
-(kernel 1) NDSolve::pdord :  Some of the functions have zero differential order, so the equations will be solved as a system of differential-algebraic equations.
-(kernel 9) General::stop :  Further output of NDSolve::pdord will be suppressed during this calculation.
-(kernel 7) General::stop :  Further output of NDSolve::pdord will be suppressed during this calculation.
-(kernel 1) NDSolve::pdord :  Some of the functions have zero differential order, so the equations will be solved as a system of differential-algebraic equations.
-(kernel 1) General::stop :  Further output of NDSolve::pdord will be suppressed during this calculation.
+
 (*Grid[N[s],Frame->All]*)
 ss=Flatten[s,1];
 ListPlot3D[ss]
 ListContourPlot[ss]
 ListContourPlot[ss,PlotRange->{740,960}]
-Out[37]= 
-Out[38]= 
-Out[39]= 
