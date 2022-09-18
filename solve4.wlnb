@@ -2,7 +2,7 @@
  "cells": [
   {
    "kind": 2,
-   "value": "Clear[\"Global`*\"];\n(* AG长度 *)\nd = 1.40792;\n(* 弹簧原长度 *)\nl0 = 0.5; \n(* 振子质量 *)\nm = 2433; \n(* 弹簧劲度系数 *)\nk = 80000;\n(* 直线阻尼器阻尼系数 *)\nc = 10000;\n(* 小g *)\ng = 9.8;\n(* 弹簧旋转刚度 *)\nkrot = 250000;\n(* 旋转阻尼器阻尼系数 *)\ncrot = 1000;\n(* 浮子质量 *)\nM = 4866;\n(* 垂荡兴波阻尼系数 *)\nc0 = 683.4558;\n(* 纵摇附加转动惯量 *)\nI0 = 7001.914;\n(* 纵摇激励力矩振幅 *)\nL = 1690;\n(* 入射波浪频率 *)\nw = 1.7152;\n(* 垂荡激励力振幅 *)\nf = 3640;\n(* 浮子转动惯量 *)\n(* Ia = 300*4866/(7 \\[Pi]+(Sqrt[41] \\[Pi])/5)*(Integrate[1/0.8*2*Pi*(r+(17.6+8/75*(Sqrt[41]))/(7+(Sqrt[41])/5))*r^2,{r,-(17.6+8/75*(Sqrt[41]))/(7+(Sqrt[41])/5),-(17.6+8/75*(Sqrt[41]))/(7+(Sqrt[41])/5)+0.8}]+Integrate[2*Pi*r^2,{r,-(17.6+8/75*(Sqrt[41]))/(7+(Sqrt[41])/5)+0.8,-(17.6+8/75*(Sqrt[41]))/(7+(Sqrt[41])/5)+3.8}]+Integrate[2*Pi*(3.8-(17.6+8/75*(Sqrt[41]))/(7+(Sqrt[41])/5))^2+a^2,{a,0,0.5}]); *)\nIa = 8399.2;\n\n(* 垂荡附加质量 *)\nm0 = 1028.876;\n(* 纵摇兴波阻尼力矩系数 *)\ncr0 = 654.3383;\n(* 纵摇静水恢复力矩系数 *)\nMrec = 8890.7;\n(* 海水密度 *)\nrho = 1025;\n\n(* 垂荡静水恢复力(浮力) *)\nFj[t_] := (7.120975609756098 - Pi*zg[t]) * rho * g;\n(* 激励力 *)\nFwave[t_] := f * Cos[w*t];\n(* 振子转动惯量 *)\n(* Ib[t_] := 258.149 + 774.448 l[t] + 1548.9 l[t]^2; *)\n(* Ib[t_] := MomentOfInertia[Cylinder[{{0, 0, 0}, {0.5, 0, 0}}, 0.5], {l[t] + 0.5, 0, 0}, {0, 0, 1}] *)\nIb[t_] := m / 12 * (4*0.5^2-12*0.5*(0.5+l[t])+3*1^2+12*(0.5+l[t])^2)\n(* 纵摇激励力矩 *)\nMwave[t_] := L * Cos[w*t];\n(* theta2 = theta1 + gamma *)\nth2[t_] := th[t] + ga[t]; \n(* P点x座标 *)\nxp[t_] := d*Sin[th[t]] - l[t]*Sin[th2[t]]; \n(* P点z座标 *)\nzp[t_] := zg[t] - d*Cos[th[t]] + l[t]*Cos[th2[t]]; \n(* PTO系统的力 *)\nFpto[t_] := -k*(l[t] - l0) - c*l'[t];\n(* PTO系统的力矩 *)\nMpto[t_] := -krot*ga[t] - crot*ga'[t];\n\nstart = 0;\nstop = start + 100;",
+   "value": "Clear[\"Global`*\"];\n(* AG长度 *)\nd = 1.40792;\n(* 弹簧原长度 *)\nl0 = 0.5; \n(* 振子质量 *)\nm = 2433; \n(* 弹簧劲度系数 *)\nk = 80000;\n(* 直线阻尼器阻尼系数 *)\nc = 10000;\n(* 小g *)\ng = 9.8;\n(* 弹簧旋转刚度 *)\nkrot = 250000;\n(* 旋转阻尼器阻尼系数 *)\ncrot = 1000;\n(* 浮子质量 *)\nM = 4866;\n(* 垂荡兴波阻尼系数 *)\nc0 = 683.4558;\n(* 纵摇附加转动惯量 *)\nI0 = 7001.914;\n(* 纵摇激励力矩振幅 *)\nL = 1690;\n(* 入射波浪频率 *)\nw = 1.7152;\n(* 垂荡激励力振幅 *)\nf = 3640;\n(* 浮子转动惯量 *)\n(* Ia = 300*4866/(7 \\[Pi]+(Sqrt[41] \\[Pi])/5)*(Integrate[1/0.8*2*Pi*(r+(17.6+8/75*(Sqrt[41]))/(7+(Sqrt[41])/5))*r^2,{r,-(17.6+8/75*(Sqrt[41]))/(7+(Sqrt[41])/5),-(17.6+8/75*(Sqrt[41]))/(7+(Sqrt[41])/5)+0.8}]+Integrate[2*Pi*r^2,{r,-(17.6+8/75*(Sqrt[41]))/(7+(Sqrt[41])/5)+0.8,-(17.6+8/75*(Sqrt[41]))/(7+(Sqrt[41])/5)+3.8}]+Integrate[2*Pi*(3.8-(17.6+8/75*(Sqrt[41]))/(7+(Sqrt[41])/5))^2+a^2,{a,0,0.5}]); *)\nIa = 8399.2;\n\n(* 垂荡附加质量 *)\nm0 = 1028.876;\n(* 纵摇兴波阻尼力矩系数 *)\ncr0 = 654.3383;\n(* 纵摇静水恢复力矩系数 *)\nMrec = 8890.7;\n(* 海水密度 *)\nrho = 1025;\n\n(* 垂荡静水恢复力(浮力) *)\n(* Fj[t_] := (7.120975609756098 - Pi*zg[t]) * rho * g; *)\nFj[t_] := (5.2609+1.86007*Sec[th[t]]-Pi*zg[t]*Sec[th[t]]) * rho * g;\n(* 激励力 *)\nFwave[t_] := f * Cos[w*t];\n(* 振子转动惯量 *)\n(* Ib[t_] := 258.149 + 774.448 l[t] + 1548.9 l[t]^2; *)\n(* Ib[t_] := MomentOfInertia[Cylinder[{{0, 0, 0}, {0.5, 0, 0}}, 0.5], {l[t] + 0.5, 0, 0}, {0, 0, 1}] *)\nIb[t_] := m / 12 * (4*0.5^2-12*0.5*(0.5+l[t])+3*1^2+12*(0.5+l[t])^2)\n(* 纵摇激励力矩 *)\nMwave[t_] := L * Cos[w*t];\n(* theta2 = theta1 + gamma *)\nth2[t_] := th[t] + ga[t]; \n(* P点x座标 *)\nxp[t_] := d*Sin[th[t]] - l[t]*Sin[th2[t]]; \n(* P点z座标 *)\nzp[t_] := zg[t] - d*Cos[th[t]] + l[t]*Cos[th2[t]]; \n(* PTO系统的力 *)\nFpto[t_] := -k*(l[t] - l0) - c*l'[t];\n(* PTO系统的力矩 *)\nMpto[t_] := -krot*ga[t] - crot*ga'[t];\n\nstart = 0;\nstop = start + 100;",
    "languageId": "wolfram",
    "outputs": [
     {
@@ -24,14 +24,7 @@
     }
    ],
    "metadata": {},
-   "executionSummary": {
-    "timing": {
-     "startTime": 1663475273549,
-     "endTime": 1663475279481
-    },
-    "executionOrder": 210,
-    "success": true
-   }
+   "executionSummary": {}
   },
   {
    "kind": 2,
@@ -39,14 +32,7 @@
    "languageId": "wolfram",
    "outputs": [],
    "metadata": {},
-   "executionSummary": {
-    "timing": {
-     "startTime": 1663475279481,
-     "endTime": 1663475279550
-    },
-    "executionOrder": 241,
-    "success": true
-   }
+   "executionSummary": {}
   },
   {
    "kind": 2,
@@ -89,14 +75,7 @@
     }
    ],
    "metadata": {},
-   "executionSummary": {
-    "timing": {
-     "startTime": 1663475279550,
-     "endTime": 1663475281668
-    },
-    "executionOrder": 242,
-    "success": true
-   }
+   "executionSummary": {}
   },
   {
    "kind": 2,
@@ -156,14 +135,7 @@
     }
    ],
    "metadata": {},
-   "executionSummary": {
-    "timing": {
-     "startTime": 1663475365505,
-     "endTime": 1663475366548
-    },
-    "executionOrder": 254,
-    "success": true
-   }
+   "executionSummary": {}
   },
   {
    "kind": 2,
@@ -189,14 +161,7 @@
     }
    ],
    "metadata": {},
-   "executionSummary": {
-    "timing": {
-     "startTime": 1663475282724,
-     "endTime": 1663475283066
-    },
-    "executionOrder": 246,
-    "success": true
-   }
+   "executionSummary": {}
   },
   {
    "kind": 2,
@@ -204,14 +169,7 @@
    "languageId": "wolfram",
    "outputs": [],
    "metadata": {},
-   "executionSummary": {
-    "timing": {
-     "startTime": 1663475283066,
-     "endTime": 1663475283131
-    },
-    "executionOrder": 247,
-    "success": true
-   }
+   "executionSummary": {}
   },
   {
    "kind": 2,
@@ -219,13 +177,7 @@
    "languageId": "wolfram",
    "outputs": [],
    "metadata": {},
-   "executionSummary": {
-    "timing": {
-     "startTime": 1663475283132,
-     "endTime": 1663475283132
-    },
-    "success": false
-   }
+   "executionSummary": {}
   }
  ]
 }
