@@ -465,8 +465,8 @@ if __name__ == '__main__':
     if thread_cmd_name == "P4":
         if use_parallelize:
             thread_num = 6
-        # sa = SA(func, x_range=[0, 100000], y_range=[0, 100000], Tf=1e-1, sx=43715.00058345546, sy=25654.693610991686)
-        sa = SA(func, x_range=[0, 100000], y_range=[0, 100000], Tf=1e-2, overflow=300)
+        # update: 14.913045566511839 F=1572.1891750649747, tot=129, x=43126.83274931154, y=25976.811058389154, count=7
+        sa = SA(func, x_range=[0, 100000], y_range=[0, 100000], Tf=1e-2, sx=43126.83274931154, sy=25976.811058389154, overflow=300)
         thread_pool_init(command=P4, name=thread_cmd_name)
     elif thread_cmd_name == "P21":
         # Temp now: 0.030233011657941858 F=230.5406624499153, tot=10001, x=37267.434515546855, count=624
