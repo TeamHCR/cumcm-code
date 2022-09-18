@@ -97,22 +97,22 @@ Fpto[t_, c_] := -k*(l[t] - l0) - c*l'[t];
 (* PTO系统的力矩 *)
 Mpto[t_, crot_] := -krot*ga[t] - crot*ga'[t];
 
-start = 200;
-stop = start + 20 / w;
-dim = 0.1;
+start = 100;
+stop = start + 5 / w * 2 * Pi;
+dim = 0.2;
 
-P4[c_, crot_] := Sum[(c * (l'[t]^2) + crot * (ga'[t]^2)) * dim, {t, start, stop, dim}] /. NDSolve[{
+P4[c_, crot_] := ((Sum[(c * (l'[t]^2) + crot * (ga'[t]^2)) * dim, {t, start, stop, dim}] /. NDSolve[{
     m*xp''[t] == -Fpto[t,c]*Sin[th2[t]] + Fab[t]*Cos[th2[t]], 
     m*zp''[t] == Fpto[t,c]*Cos[th2[t]] - m*g + Fab[t]*Sin[th2[t]], 
     Ib[t]*th2''[t] == Mpto[t,crot] + Fab[t]*l[t],
     M*zg''[t] == Fwave[t] + Fj[t] - M*g - Fpto[t,c]*Cos[th2[t]] - Fab[t]*Sin[th2[t]] - m0*zg''[t] - c0*zg'[t],
     Ia*th''[t] == Mwave[t] - Mpto[t,crot] + Fab[t]*d*Cos[th[t]]*Cos[th2[t]] - Fab[t]*d*Sin[th[t]]*Sin[th2[t]] - I0*th''[t] - cr0*th'[t] - Mrec*th[t],
-    th'[0] == th[0] == ga[0] == ga'[0] == l'[0] == zg'[0] == 0, l[0] == l0-m/k, zg[0] == 0}, {th, ga, zg, l}, {t, start, stop}]'''
+    th'[0] == th[0] == ga[0] == ga'[0] == l'[0] == zg'[0] == 0, l[0] == l0-m/k, zg[0] == 0}, {th, ga, zg, l}, {t, start, stop}]) / (stop - start))'''
 
 queue_task = queue.Queue()
 queue_res = queue.Queue()
 
-random.seed(1145141919)
+random.seed(11451419198)
 tot = 0
 threads = []
 thread_num = 16
@@ -465,8 +465,18 @@ if __name__ == '__main__':
     if thread_cmd_name == "P4":
         if use_parallelize:
             thread_num = 6
-        # update: 14.913045566511839 F=1572.1891750649747, tot=129, x=43126.83274931154, y=25976.811058389154, count=7
-        sa = SA(func, x_range=[0, 100000], y_range=[0, 100000], Tf=1e-2, sx=43126.83274931154, sy=25976.811058389154, overflow=300)
+        else:
+            thread_num = 10
+        random.seed(time.time())
+        # update: 13.218697981369385 F=167.88943798950743, tot=321, x=44327.87533235402, y=30148.311347844916, count=19
+        # update: 13.218697981369385 F=169.05912517083232, tot=321, x=43632.96648718373, y=32537.93339891905, count=19
+        # update: 15.215840798399999 F=169.0599321072756, tot=97, x=43545.90864931983, y=32672.206619840814, count=5
+        # Temp now: 5.140892816677745 F=169.06571859805382, tot=361, x=43408.15188934769, y=30062.39077757641, count=44
+        # update: 14.913045566511839 F=167.8902517525808, tot=129, x=44492.630422162256, y=29644.097073419372, count=7
+        # update: 11.483688521572397 F=167.89034175102677, tot=273, x=44493.76334705677, y=29418.730190797396, count=33
+        # sa = SA(func, x_range=[30000, 50000], y_range=[25000, 40000], Tf=1e-1, sx=44493.76334705677, sy=29418.730190797396, overflow=300)
+        sa = SA(func, x_range=[0, 100000], y_range=[0, 100000], Tf=1e-1, sx=44493.76334705677, sy=29418.730190797396, overflow=300)
+        # sa = SA(func, x_range=[0, 100000], y_range=[0, 100000], Tf=1e-1, overflow=300)
         thread_pool_init(command=P4, name=thread_cmd_name)
     elif thread_cmd_name == "P21":
         # Temp now: 0.030233011657941858 F=230.5406624499153, tot=10001, x=37267.434515546855, count=624
