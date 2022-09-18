@@ -23,7 +23,7 @@ P22I[ck_, ce_] := NDSolve[{m*x2''[t]==k*(x1[t]-x2[t])+cmv2[x1'[t]-x2'[t], ck, ce
 P22[ck_, ce_] := Sum[cmv2[x1'[i]-x2'[i], ck, ce+2] * dim, {i, start, stop, dim}] /. P22I[ck, ce]
 """
 
-P3 = '''
+P4 = '''
 Clear["Global`*"];
 (* AG长度 *)
 d = 1.40792;
@@ -51,7 +51,7 @@ w = 1.9806;
 f = 1760;
 (* 浮子转动惯量 *)
 (* Ia = 300*4866/(7 \[Pi]+(Sqrt[41] \[Pi])/5)*(Integrate[1/0.8*2*Pi*(r+(17.6+8/75*(Sqrt[41]))/(7+(Sqrt[41])/5))*r^2,{r,-(17.6+8/75*(Sqrt[41]))/(7+(Sqrt[41])/5),-(17.6+8/75*(Sqrt[41]))/(7+(Sqrt[41])/5)+0.8}]+Integrate[2*Pi*r^2,{r,-(17.6+8/75*(Sqrt[41]))/(7+(Sqrt[41])/5)+0.8,-(17.6+8/75*(Sqrt[41]))/(7+(Sqrt[41])/5)+3.8}]+Integrate[2*Pi*(3.8-(17.6+8/75*(Sqrt[41]))/(7+(Sqrt[41])/5))^2+a^2,{a,0,0.5}]); *)
-Ia = 540000;
+Ia = 8399.2;
 
 (* 垂荡附加质量 *)
 m0 = 1091.099;
@@ -87,7 +87,7 @@ start = 300;
 stop = start + 10;
 dim = 1;
 
-P3[c_, crot_] := Sum[(c * (l'[t]^2) + crot * (ga'[t]^2)) * dim, {t, start, stop, dim}] /. NDSolve[{
+P4[c_, crot_] := Sum[(c * (l'[t]^2) + crot * (ga'[t]^2)) * dim, {t, start, stop, dim}] /. NDSolve[{
     m*xp''[t] == -Fpto[t,c]*Sin[th2[t]] + Fab[t]*Cos[th2[t]], 
     m*zp''[t] == Fpto[t,c]*Cos[th2[t]] - m*g + Fab[t]*Sin[th2[t]], 
     Ib[t]*th2''[t] == Mpto[t,crot] + Fab[t]*l[t],
@@ -389,8 +389,8 @@ class SA:
 
 if __name__ == '__main__':
     # x=32241.41596050716, y=100000, F=2979.836002974773
-    thread_num = 7
-    thread_pool_init(command=P3, name="P3")
+    thread_num = 6
+    thread_pool_init(command=P4, name="P4")
     sa = SA(func, x_range=[20000, 40000], y_range=[90000, 100000], Tf=10, sx=32241.41596050716, sy=100000)
     sa.run_random_climb()
     sa.display()

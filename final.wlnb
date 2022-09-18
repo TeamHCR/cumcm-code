@@ -633,37 +633,37 @@
   },
   {
    "kind": 2,
-   "value": "Clear[\"Global`*\"];\n(* AG长度 *)\nd = 1.40792;\n(* 弹簧原长度 *)\nl0 = 0.5; \n(* 振子质量 *)\nm = 2433; \n(* 弹簧劲度系数 *)\nk = 80000;\n(* 小g *)\ng = 9.8;\n(* 弹簧旋转刚度 *)\nkrot = 250000;\n(* 浮子质量 *)\nM = 4866;\n(* 垂荡兴波阻尼系数 *)\nc0 = 528.5018;\n(* 纵摇附加转动惯量 *)\nI0 = 7142.493;\n(* 纵摇激励力矩振幅 *)\nL = 2140;\n(* 入射波浪频率 *)\nw = 1.9806;\n(* 垂荡激励力振幅 *)\nf = 1760;\n(* 浮子转动惯量 *)\n(* Ia = 300*4866/(7 \\[Pi]+(Sqrt[41] \\[Pi])/5)*(Integrate[1/0.8*2*Pi*(r+(17.6+8/75*(Sqrt[41]))/(7+(Sqrt[41])/5))*r^2,{r,-(17.6+8/75*(Sqrt[41]))/(7+(Sqrt[41])/5),-(17.6+8/75*(Sqrt[41]))/(7+(Sqrt[41])/5)+0.8}]+Integrate[2*Pi*r^2,{r,-(17.6+8/75*(Sqrt[41]))/(7+(Sqrt[41])/5)+0.8,-(17.6+8/75*(Sqrt[41]))/(7+(Sqrt[41])/5)+3.8}]+Integrate[2*Pi*(3.8-(17.6+8/75*(Sqrt[41]))/(7+(Sqrt[41])/5))^2+a^2,{a,0,0.5}]); *)\nIa = 540000;\n\n(* 垂荡附加质量 *)\nm0 = 1091.099;\n(* 纵摇兴波阻尼力矩系数 *)\ncr0 = 1655.909;\n(* 纵摇静水恢复力矩系数 *)\nMrec = 8890.7;\n(* 海水密度 *)\nrho = 1025;\n\n(* 垂荡静水恢复力(浮力) *)\nFj[t_] := (7.120975609756098 - Pi*zg[t]) * rho * g;\n(* 激励力 *)\nFwave[t_] := f * Cos[w*t];\n(* 振子转动惯量 *)\n(* Ib[t_] := 258.149 + 774.448 l[t] + 1548.9 l[t]^2; *)\n(* Ib[t_] := MomentOfInertia[Cylinder[{{0, 0, 0}, {0.5, 0, 0}}, 0.5], {l[t] + 0.5, 0, 0}, {0, 0, 1}] *)\nIb[t_] := m / 12 * (4*0.5^2-12*0.5*(0.5+l[t])+3*1^2+12*(0.5+l[t])^2)\n(* 纵摇激励力矩 *)\nMwave[t_] := L * Cos[w*t];\n(* theta2 = theta1 + gamma *)\nth2[t_] := th[t] + ga[t]; \n(* P点x座标 *)\nxp[t_] := d*Sin[th[t]] - l[t]*Sin[th2[t]]; \n(* P点z座标 *)\nzp[t_] := zg[t] - d*Cos[th[t]] + l[t]*Cos[th2[t]]; \n(* PTO系统的力 *)\nFpto[t_, c_] := -k*(l[t] - l0) - c*l'[t];\n(* PTO系统的力矩 *)\nMpto[t_, crot_] := -krot*ga[t] - crot*ga'[t];\n\nstart = 300;\nstop = start + 10;\ndim = 1;",
+   "value": "Clear[\"Global`*\"];\n(* AG长度 *)\nd = 1.40792;\n(* 弹簧原长度 *)\nl0 = 0.5; \n(* 振子质量 *)\nm = 2433; \n(* 弹簧劲度系数 *)\nk = 80000;\n(* 小g *)\ng = 9.8;\n(* 弹簧旋转刚度 *)\nkrot = 250000;\n(* 浮子质量 *)\nM = 4866;\n(* 垂荡兴波阻尼系数 *)\nc0 = 528.5018;\n(* 纵摇附加转动惯量 *)\nI0 = 7142.493;\n(* 纵摇激励力矩振幅 *)\nL = 2140;\n(* 入射波浪频率 *)\nw = 1.9806;\n(* 垂荡激励力振幅 *)\nf = 1760;\n(* 浮子转动惯量 *)\n(* Ia = 300*4866/(7 \\[Pi]+(Sqrt[41] \\[Pi])/5)*(Integrate[1/0.8*2*Pi*(r+(17.6+8/75*(Sqrt[41]))/(7+(Sqrt[41])/5))*r^2,{r,-(17.6+8/75*(Sqrt[41]))/(7+(Sqrt[41])/5),-(17.6+8/75*(Sqrt[41]))/(7+(Sqrt[41])/5)+0.8}]+Integrate[2*Pi*r^2,{r,-(17.6+8/75*(Sqrt[41]))/(7+(Sqrt[41])/5)+0.8,-(17.6+8/75*(Sqrt[41]))/(7+(Sqrt[41])/5)+3.8}]+Integrate[2*Pi*(3.8-(17.6+8/75*(Sqrt[41]))/(7+(Sqrt[41])/5))^2+a^2,{a,0,0.5}]); *)\nIa = 8399.2;\n\n(* 垂荡附加质量 *)\nm0 = 1091.099;\n(* 纵摇兴波阻尼力矩系数 *)\ncr0 = 1655.909;\n(* 纵摇静水恢复力矩系数 *)\nMrec = 8890.7;\n(* 海水密度 *)\nrho = 1025;\n\n(* 垂荡静水恢复力(浮力) *)\nFj[t_] := (7.120975609756098 - Pi*zg[t]) * rho * g;\n(* 激励力 *)\nFwave[t_] := f * Cos[w*t];\n(* 振子转动惯量 *)\n(* Ib[t_] := 258.149 + 774.448 l[t] + 1548.9 l[t]^2; *)\n(* Ib[t_] := MomentOfInertia[Cylinder[{{0, 0, 0}, {0.5, 0, 0}}, 0.5], {l[t] + 0.5, 0, 0}, {0, 0, 1}] *)\nIb[t_] := m / 12 * (4*0.5^2-12*0.5*(0.5+l[t])+3*1^2+12*(0.5+l[t])^2)\n(* 纵摇激励力矩 *)\nMwave[t_] := L * Cos[w*t];\n(* theta2 = theta1 + gamma *)\nth2[t_] := th[t] + ga[t]; \n(* P点x座标 *)\nxp[t_] := d*Sin[th[t]] - l[t]*Sin[th2[t]]; \n(* P点z座标 *)\nzp[t_] := zg[t] - d*Cos[th[t]] + l[t]*Cos[th2[t]]; \n(* PTO系统的力 *)\nFpto[t_, c_] := -k*(l[t] - l0) - c*l'[t];\n(* PTO系统的力矩 *)\nMpto[t_, crot_] := -krot*ga[t] - crot*ga'[t];\n\nstart = 300;\nstop = start + 10;\ndim = 1;",
    "languageId": "wolfram",
    "outputs": [],
    "metadata": {},
    "executionSummary": {
     "timing": {
-     "startTime": 1663465402677,
-     "endTime": 1663465404482
+     "startTime": 1663470168167,
+     "endTime": 1663470169978
     },
-    "executionOrder": 285,
+    "executionOrder": 364,
     "success": true
    }
   },
   {
    "kind": 2,
-   "value": "P3[c_, crot_] := Sum[(c * (l'[t]^2) + crot * (ga'[t]^2)) * dim, {t, start, stop, dim}] /. NDSolve[{\n    m*xp''[t] == -Fpto[t,c]*Sin[th2[t]] + Fab[t]*Cos[th2[t]], \n    m*zp''[t] == Fpto[t,c]*Cos[th2[t]] - m*g + Fab[t]*Sin[th2[t]], \n    Ib[t]*th2''[t] == Mpto[t,crot] + Fab[t]*l[t],\n    M*zg''[t] == Fwave[t] + Fj[t] - M*g - Fpto[t,c]*Cos[th2[t]] - Fab[t]*Sin[th2[t]] - m0*zg''[t] - c0*zg'[t],\n    Ia*th''[t] == Mwave[t] - Mpto[t,crot] + Fab[t]*d*Cos[th[t]]*Cos[th2[t]] - Fab[t]*d*Sin[th[t]]*Sin[th2[t]] - I0*th''[t] - cr0*th'[t] - Mrec*th[t],\n    th'[0] == th[0] == ga[0] == ga'[0] == l'[0] == zg'[0] == 0, l[0] == l0-m/k, zg[0] == 0}, {th, ga, zg, l}, {t, start, stop}]",
+   "value": "P4[c_, crot_] := Sum[(c * (l'[t]^2) + crot * (ga'[t]^2)) * dim, {t, start, stop, dim}] /. NDSolve[{\n    m*xp''[t] == -Fpto[t,c]*Sin[th2[t]] + Fab[t]*Cos[th2[t]], \n    m*zp''[t] == Fpto[t,c]*Cos[th2[t]] - m*g + Fab[t]*Sin[th2[t]], \n    Ib[t]*th2''[t] == Mpto[t,crot] + Fab[t]*l[t],\n    M*zg''[t] == Fwave[t] + Fj[t] - M*g - Fpto[t,c]*Cos[th2[t]] - Fab[t]*Sin[th2[t]] - m0*zg''[t] - c0*zg'[t],\n    Ia*th''[t] == Mwave[t] - Mpto[t,crot] + Fab[t]*d*Cos[th[t]]*Cos[th2[t]] - Fab[t]*d*Sin[th[t]]*Sin[th2[t]] - I0*th''[t] - cr0*th'[t] - Mrec*th[t],\n    th'[0] == th[0] == ga[0] == ga'[0] == l'[0] == zg'[0] == 0, l[0] == l0-m/k, zg[0] == 0}, {th, ga, zg, l}, {t, start, stop}]",
    "languageId": "wolfram",
    "outputs": [],
    "metadata": {},
    "executionSummary": {
     "timing": {
-     "startTime": 1663465404482,
-     "endTime": 1663465404547
+     "startTime": 1663470169979,
+     "endTime": 1663470170043
     },
-    "executionOrder": 315,
+    "executionOrder": 394,
     "success": true
    }
   },
   {
    "kind": 2,
-   "value": "First[P3[10000, 1000]]",
+   "value": "First[P4[10000, 1000]]",
    "languageId": "wolfram",
    "outputs": [
     {
@@ -677,7 +677,7 @@
        "mime": "text/plain"
       }
      ],
-     "id": "6b8587da-1459-4279-a527-1bf4792f62ab",
+     "id": "a8499345-3059-425c-a626-1af9f8854faf",
      "metadata": {
       "cellLabel": "",
       "isBoxData": false
@@ -686,17 +686,17 @@
     {
      "items": [
       {
-       "data": "<div class=\"wexpr\"><w>997.932</w></div>",
+       "data": "<div class=\"wexpr\"><w>751.564</w></div>",
        "mime": "x-application/wolfram-language-html"
       },
       {
-       "data": "997.932315777446",
+       "data": "751.5643927338009",
        "mime": "text/plain"
       }
      ],
-     "id": "858617a7-2de7-43ba-8b0b-7fdf58105a84",
+     "id": "29baeb8f-bf18-4c84-a4e3-e1c06917c107",
      "metadata": {
-      "cellLabel": "Out[316]= ",
+      "cellLabel": "Out[395]= ",
       "isBoxData": false
      }
     }
@@ -704,10 +704,329 @@
    "metadata": {},
    "executionSummary": {
     "timing": {
-     "startTime": 1663465404547,
-     "endTime": 1663465406964
+     "startTime": 1663470170043,
+     "endTime": 1663470175831
     },
-    "executionOrder": 316,
+    "executionOrder": 395,
+    "success": true
+   }
+  },
+  {
+   "kind": 2,
+   "value": "CalcP4[kStart_, kStop_, kStepNum_, eStart_, eStop_, eStepNum_] := \n  Table[{pe, ppk, First[P4[ppk, pe]]}, \n    {ppk, Range[kStart, kStop, (kStop-kStart)/kStepNum]}, \n    {pe, Range[eStart, eStop, (eStop-eStart)/eStepNum]}]\nDrawP4[data_] := ListPlot3D[Flatten[data, 1]]",
+   "languageId": "wolfram",
+   "outputs": [],
+   "metadata": {},
+   "executionSummary": {
+    "timing": {
+     "startTime": 1663470175832,
+     "endTime": 1663470175958
+    },
+    "executionOrder": 396,
+    "success": true
+   }
+  },
+  {
+   "kind": 2,
+   "value": "s = CalcP4[0, 100000, 8, 0, 100000, 8];",
+   "languageId": "wolfram",
+   "outputs": [
+    {
+     "items": [
+      {
+       "data": "<pre><span class=\"wl-message\">NDSolve::pdord</span>: \n   Some of the functions have zero differential order, so the equations will\n    be solved as a system of differential-algebraic equations.</pre>",
+       "mime": "x-application/wolfram-language-html"
+      },
+      {
+       "data": "NDSolve::pdord: \n   Some of the functions have zero differential order, so the equations will\n    be solved as a system of differential-algebraic equations.",
+       "mime": "text/plain"
+      }
+     ],
+     "id": "b3647c57-e1c6-4b4e-97eb-2cad5f78cb26",
+     "metadata": {
+      "cellLabel": "",
+      "isBoxData": false
+     }
+    }
+   ],
+   "metadata": {},
+   "executionSummary": {
+    "timing": {
+     "startTime": 1663470175959,
+     "endTime": 1663470493650
+    },
+    "executionOrder": 398,
+    "success": false
+   }
+  },
+  {
+   "kind": 2,
+   "value": "ss = Table[{i[[1]], i[[2]], i[[3]]}, {i, Flatten[s, 1]}];\nGrid[N[s], Frame->All]\nListPlot3D[ss]\nListContourPlot[ss]",
+   "languageId": "wolfram",
+   "outputs": [
+    {
+     "items": [
+      {
+       "data": "<pre><span class=\"wl-message\">Flatten::normal</span>: Nonatomic expression expected at position 1 in Flatten[s, 1].</pre>",
+       "mime": "x-application/wolfram-language-html"
+      },
+      {
+       "data": "Flatten::normal: Nonatomic expression expected at position 1 in Flatten[s, 1].",
+       "mime": "text/plain"
+      }
+     ],
+     "id": "0ad3f996-f092-4aa6-ab63-8c6bcb51dd29",
+     "metadata": {
+      "cellLabel": "",
+      "isBoxData": false
+     }
+    },
+    {
+     "items": [
+      {
+       "data": "<pre><span class=\"wl-message\">Table::iterb</span>: Iterator {i, Flatten[s, 1]} does not have appropriate bounds.</pre>",
+       "mime": "x-application/wolfram-language-html"
+      },
+      {
+       "data": "Table::iterb: Iterator {i, Flatten[s, 1]} does not have appropriate bounds.",
+       "mime": "text/plain"
+      }
+     ],
+     "id": "fcce81fd-4f46-4edb-b4e8-5e46cdaca48f",
+     "metadata": {
+      "cellLabel": "",
+      "isBoxData": false
+     }
+    },
+    {
+     "items": [
+      {
+       "data": "<div class=\"wexpr\"><wrow><w></w><w>Grid</w><wrow><w></w><wb>[</wb><wrow><w></w><w>s</w><w>,</w><wrow><w></w><w>Frame</w><w class=\"symbol\"></w><w>All</w></wrow></wrow><wb>]</wb></wrow></wrow></div>",
+       "mime": "x-application/wolfram-language-html"
+      },
+      {
+       "data": "Grid[s, Frame -> All]",
+       "mime": "text/plain"
+      }
+     ],
+     "id": "2e878224-a945-45c1-882b-a3606b3dc78b",
+     "metadata": {
+      "cellLabel": "Out[400]= ",
+      "isBoxData": false
+     }
+    },
+    {
+     "items": [
+      {
+       "data": "<pre><span class=\"wl-message\">Flatten::normal</span>: \n   Nonatomic expression expected at position 1 in \n    Flatten[s, 1.000000000000000].</pre>",
+       "mime": "x-application/wolfram-language-html"
+      },
+      {
+       "data": "Flatten::normal: \n   Nonatomic expression expected at position 1 in \n    Flatten[s, 1.000000000000000].",
+       "mime": "text/plain"
+      }
+     ],
+     "id": "7ce0fd28-218e-4a04-8f10-9f915bd376c8",
+     "metadata": {
+      "cellLabel": "",
+      "isBoxData": false
+     }
+    },
+    {
+     "items": [
+      {
+       "data": "<pre><span class=\"wl-message\">Table::iterb</span>: Iterator {i, Flatten[s, 1.000000000000000]}\n     does not have appropriate bounds.</pre>",
+       "mime": "x-application/wolfram-language-html"
+      },
+      {
+       "data": "Table::iterb: Iterator {i, Flatten[s, 1.000000000000000]}\n     does not have appropriate bounds.",
+       "mime": "text/plain"
+      }
+     ],
+     "id": "cd826a24-f2b4-4e36-9ffe-5f75e0ec1cc0",
+     "metadata": {
+      "cellLabel": "",
+      "isBoxData": false
+     }
+    },
+    {
+     "items": [
+      {
+       "data": "<pre><span class=\"wl-message\">Flatten::normal</span>: \n   Nonatomic expression expected at position 1 in Flatten[s, 1.].</pre>",
+       "mime": "x-application/wolfram-language-html"
+      },
+      {
+       "data": "Flatten::normal: \n   Nonatomic expression expected at position 1 in Flatten[s, 1.].",
+       "mime": "text/plain"
+      }
+     ],
+     "id": "4d1fcc62-6d74-40ff-846b-b621b8a67438",
+     "metadata": {
+      "cellLabel": "",
+      "isBoxData": false
+     }
+    },
+    {
+     "items": [
+      {
+       "data": "<pre><span class=\"wl-message\">Table::iterb</span>: Iterator {i, Flatten[s, 1.]} does not have appropriate bounds.</pre>",
+       "mime": "x-application/wolfram-language-html"
+      },
+      {
+       "data": "Table::iterb: Iterator {i, Flatten[s, 1.]} does not have appropriate bounds.",
+       "mime": "text/plain"
+      }
+     ],
+     "id": "5d018461-e8d2-4ab9-a493-33b96c24e19b",
+     "metadata": {
+      "cellLabel": "",
+      "isBoxData": false
+     }
+    },
+    {
+     "items": [
+      {
+       "data": "<pre><span class=\"wl-message\">Part::partd</span>: Part specification i[[1]] is longer than depth of object.</pre>",
+       "mime": "x-application/wolfram-language-html"
+      },
+      {
+       "data": "Part::partd: Part specification i[[1]] is longer than depth of object.",
+       "mime": "text/plain"
+      }
+     ],
+     "id": "a10eaf76-9214-4d51-83f8-3d7024f4a650",
+     "metadata": {
+      "cellLabel": "",
+      "isBoxData": false
+     }
+    },
+    {
+     "items": [
+      {
+       "data": "<pre><span class=\"wl-message\">Table::nliter</span>: Non-list iterator VectorQ[{i, Flatten[s, 1]}] at position 2\n     does not evaluate to a real numeric value.</pre>",
+       "mime": "x-application/wolfram-language-html"
+      },
+      {
+       "data": "Table::nliter: Non-list iterator VectorQ[{i, Flatten[s, 1]}] at position 2\n     does not evaluate to a real numeric value.",
+       "mime": "text/plain"
+      }
+     ],
+     "id": "af3f0fc3-0f7d-4d3b-897f-0fffa5a5719b",
+     "metadata": {
+      "cellLabel": "",
+      "isBoxData": false
+     }
+    },
+    {
+     "items": [
+      {
+       "data": "<pre>Visualization`Core`<span class=\"wl-message\">ListPlot3D::arrayerr</span>: \n   -- Message text not found -- (\n    Table[{i[[1]], i[[2]], i[[3]]}, {i, Flatten[s, 1.]}])</pre>",
+       "mime": "x-application/wolfram-language-html"
+      },
+      {
+       "data": "Visualization`Core`ListPlot3D::arrayerr: \n   -- Message text not found -- (\n    Table[{i[[1]], i[[2]], i[[3]]}, {i, Flatten[s, 1.]}])",
+       "mime": "text/plain"
+      }
+     ],
+     "id": "e1335abc-528f-4b52-8794-b54b7aa5a304",
+     "metadata": {
+      "cellLabel": "",
+      "isBoxData": false
+     }
+    },
+    {
+     "items": [
+      {
+       "data": "<div class=\"wexpr\"><wrow><w></w><w>ListPlot3D</w><wrow><w></w><wb>[</wb><wrow><w></w><w>Table</w><wrow><w></w><wb>[</wb><wrow><w></w><wrow><w></w><wb>{</wb><wrow><w></w><wrow><w></w><w>i</w><wrow><w></w><wb>〚</wb><w>1</w><wb>〛</wb></wrow></wrow><w>,</w><wrow><w></w><w>i</w><wrow><w></w><wb>〚</wb><w>2</w><wb>〛</wb></wrow></wrow><w>,</w><wrow><w></w><w>i</w><wrow><w></w><wb>〚</wb><w>3</w><wb>〛</wb></wrow></wrow></wrow><wb>}</wb></wrow><w>,</w><wrow><w></w><wb>{</wb><wrow><w></w><w>i</w><w>,</w><wrow><w></w><w>Flatten</w><wrow><w></w><wb>[</wb><wrow><w></w><w>s</w><w>,</w><w>1</w></wrow><wb>]</wb></wrow></wrow></wrow><wb>}</wb></wrow></wrow><wb>]</wb></wrow></wrow><wb>]</wb></wrow></wrow></div>",
+       "mime": "x-application/wolfram-language-html"
+      },
+      {
+       "data": "ListPlot3D[Table[{i[[1]], i[[2]], i[[3]]}, {i, Flatten[s, 1]}]]",
+       "mime": "text/plain"
+      }
+     ],
+     "id": "5af6c58e-f7d4-41f5-896a-9df40cbae7fe",
+     "metadata": {
+      "cellLabel": "Out[401]= ",
+      "isBoxData": false
+     }
+    },
+    {
+     "items": [
+      {
+       "data": "<pre><span class=\"wl-message\">Flatten::normal</span>: \n   Nonatomic expression expected at position 1 in Flatten[s, 1.].</pre>",
+       "mime": "x-application/wolfram-language-html"
+      },
+      {
+       "data": "Flatten::normal: \n   Nonatomic expression expected at position 1 in Flatten[s, 1.].",
+       "mime": "text/plain"
+      }
+     ],
+     "id": "93f00421-202c-46c9-bb54-011a0ef391e4",
+     "metadata": {
+      "cellLabel": "",
+      "isBoxData": false
+     }
+    },
+    {
+     "items": [
+      {
+       "data": "<pre><span class=\"wl-message\">Table::iterb</span>: Iterator {i, Flatten[s, 1.]} does not have appropriate bounds.</pre>",
+       "mime": "x-application/wolfram-language-html"
+      },
+      {
+       "data": "Table::iterb: Iterator {i, Flatten[s, 1.]} does not have appropriate bounds.",
+       "mime": "text/plain"
+      }
+     ],
+     "id": "cbe242e6-26fe-4d35-b15f-df5a0737aca5",
+     "metadata": {
+      "cellLabel": "",
+      "isBoxData": false
+     }
+    },
+    {
+     "items": [
+      {
+       "data": "<pre><span class=\"wl-message\">ListContourPlot::arrayerr</span>: \n   Table[{i[[1]], i[[2]], i[[3]]}, {i, Flatten[s, 1.]}] must be a valid array.</pre>",
+       "mime": "x-application/wolfram-language-html"
+      },
+      {
+       "data": "ListContourPlot::arrayerr: \n   Table[{i[[1]], i[[2]], i[[3]]}, {i, Flatten[s, 1.]}] must be a valid array.",
+       "mime": "text/plain"
+      }
+     ],
+     "id": "1dd202b9-f953-4a8e-bfcb-f5ceb3bac3b6",
+     "metadata": {
+      "cellLabel": "",
+      "isBoxData": false
+     }
+    },
+    {
+     "items": [
+      {
+       "data": "<div class=\"wexpr\"><wrow><w></w><w>ListContourPlot</w><wrow><w></w><wb>[</wb><wrow><w></w><w>Table</w><wrow><w></w><wb>[</wb><wrow><w></w><wrow><w></w><wb>{</wb><wrow><w></w><wrow><w></w><w>i</w><wrow><w></w><wb>〚</wb><w>1</w><wb>〛</wb></wrow></wrow><w>,</w><wrow><w></w><w>i</w><wrow><w></w><wb>〚</wb><w>2</w><wb>〛</wb></wrow></wrow><w>,</w><wrow><w></w><w>i</w><wrow><w></w><wb>〚</wb><w>3</w><wb>〛</wb></wrow></wrow></wrow><wb>}</wb></wrow><w>,</w><wrow><w></w><wb>{</wb><wrow><w></w><w>i</w><w>,</w><wrow><w></w><w>Flatten</w><wrow><w></w><wb>[</wb><wrow><w></w><w>s</w><w>,</w><w>1</w></wrow><wb>]</wb></wrow></wrow></wrow><wb>}</wb></wrow></wrow><wb>]</wb></wrow></wrow><wb>]</wb></wrow></wrow></div>",
+       "mime": "x-application/wolfram-language-html"
+      },
+      {
+       "data": "ListContourPlot[Table[{i[[1]], i[[2]], i[[3]]}, {i, Flatten[s, 1]}]]",
+       "mime": "text/plain"
+      }
+     ],
+     "id": "212ce65f-7cdc-4af5-941a-af944ebe41f9",
+     "metadata": {
+      "cellLabel": "Out[402]= ",
+      "isBoxData": false
+     }
+    }
+   ],
+   "metadata": {},
+   "executionSummary": {
+    "timing": {
+     "startTime": 1663470493651,
+     "endTime": 1663470495180
+    },
+    "executionOrder": 399,
     "success": true
    }
   },
