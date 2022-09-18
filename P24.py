@@ -1,3 +1,4 @@
+import sys
 import threading
 import queue
 import time
@@ -15,25 +16,25 @@ P21 = """
 Clear["Global`*"];
 M = 4866; m = 2433; k = 80000; c = 10000; omega = 2.2143; k1 = 1025 * 9.8 * Pi;
 f = 4890; c0 = 167.8395; m0 = 1165.992;
-start = 510; stop = 520; dim = 0.01;
-P21[cm2_] := Sum[cm2 * ((x1'[i] - x2'[i])^2) * dim, {i, start, stop, dim}] /. 
+start = 110; stop = start + 20 * 1 / omega*2*Pi; dim = 0.01;
+P21[cm2_] := (Sum[cm2 * ((x1'[i] - x2'[i])^2) * dim, {i, start, stop, dim}] /. 
   NDSolve[{m*x2''[t]==k*(x1[t]-x2[t])+cm2*(x1'[t]-x2'[t]), 
     f*Cos[omega * t]==k*(x1[t]-x2[t])+cm2*(x1'[t]-x2'[t])+k1*x1[t]+c0*x1'[t]+m0*x1''[t]+M*x1''[t], 
     x1[0]==x2[0]==x1'[0]==x2'[0]==0},
-  {x1, x2}, {t, start, stop}]
+  {x1, x2}, {t, start, stop}]) / (stop-start)
 """
 
 P22 = """
 Clear["Global`*"];
 M = 4866; m = 2433; k = 80000; c = 10000; omega = 2.2143; k1 = 1025 * 9.8 * Pi;
 f = 4890; c0 = 167.8395; m0 = 1165.992;
-start = 110; stop = start + 20 * 1 / omega; dim = 0.1;
+start = 110; stop = start + 20 * 1 / omega*2*Pi; dim = 0.01;
 cmv2[v_, ck_, ce_] := ck * Abs[v]^ce;
 P22I[ck_, ce_] := NDSolve[{m*x2''[t]==k*(x1[t]-x2[t])+cmv2[x1'[t]-x2'[t], ck, ce]*(x1'[t]-x2'[t]), 
     f*Cos[omega * t]==k*(x1[t]-x2[t])+cmv2[x1'[t]-x2'[t], ck, ce]*(x1'[t]-x2'[t])+k1*x1[t]+c0*x1'[t]+m0*x1''[t]+M*x1''[t], 
     x1[0]==x2[0]==x1'[0]==x2'[0]==0},
   {x1, x2}, {t, start, stop}]
-P22[ck_, ce_] := Sum[cmv2[x1'[i]-x2'[i], ck, ce+2] * dim, {i, start, stop, dim}] /. P22I[ck, ce]
+P22[ck_, ce_] := (Sum[cmv2[x1'[i]-x2'[i], ck, ce+2] * dim, {i, start, stop, dim}] /. P22I[ck, ce]) / (stop-start)
 """
 
 P4 = '''
@@ -451,29 +452,30 @@ session_g = WolframLanguageSession() if not use_parallelize else None
 
 if __name__ == '__main__':
     # thread_cmd_name = "P4"
-    # thread_cmd_name = "P22"
-    thread_cmd_name = "P21"
+    thread_cmd_name = "P22"
+    # thread_cmd_name = "P21"
+    if len(sys.argv) > 1:
+        if "22" in sys.argv[1]:
+            thread_cmd_name = "P22"
+        elif "21" in sys.argv[1]:
+            thread_cmd_name = "P21"
+        else:
+            thread_cmd_name = "P4"
+    print(f"thread_cmd_name = {thread_cmd_name}")
     if thread_cmd_name == "P4":
-        # x=32241.41596050716, y=100000, F=2979.836002974773
-        # Temp now: 13.7214 F=1726.2186418442523, tot=43, x=42227.56762547424, y=28799.10473477897, count=2
-        # Temp now: 8.218514947124781 F=1727.2570404255514, tot=325, x=43715.00058345546, y=25654.693610991686, count=53
         if use_parallelize:
             thread_num = 6
         # sa = SA(func, x_range=[0, 100000], y_range=[0, 100000], Tf=1e-1, sx=43715.00058345546, sy=25654.693610991686)
-        sa = SA(func, x_range=[0, 100000], y_range=[0, 100000], Tf=1e-1)
+        sa = SA(func, x_range=[0, 100000], y_range=[0, 100000], Tf=1e-2, overflow=300)
         thread_pool_init(command=P4, name=thread_cmd_name)
     elif thread_cmd_name == "P21":
-        # x=36909.37071462201, F=2295.7213258322026
-        sa = SA(func, x_range=[0, 100000], y_range=[0, 1], Tf=1e-1, overflow=300)
+        # Temp now: 0.030233011657941858 F=230.5406624499153, tot=10001, x=37267.434515546855, count=624
+        sa = SA(func, x_range=[0, 100000], y_range=[0, 1], Tf=1e-2, overflow=300, sx=37267.434515546855)
         thread_pool_init(command=P21, name=thread_cmd_name)
-    else:
-        # start: F=2547.6755617509302, x=100000, y=0.44880933129114925
-        # Temp now: 0.09968820536089253 F=2547.6757122465424, tot=6889, x=100000, y=0.449095895045575, count=492
-        # sa = SA(func, x_range=[0, 100000], y_range=[0, 1], Tf=1e-1)
+    else:  # 22
         
-        # Temp now: 2.869050937515369 F=2401.167153960724, tot=2753, x=36669.47581079803, y=0, count=171
-        # Temp now: 0.5631703523340716 F=2286.161260850864, tot=5345, x=36235.00330104634, y=0, count=333
-        sa = SA(func, x_range=[0, 100000], y_range=[0, 1], Tf=1e-2, sx=36235.4455663941, sy=0.01)
+        sa = SA(func, x_range=[0, 100000], y_range=[0, 1], Tf=1e-2, sx=36250.469554020114, sy=1.954631736700019e-06, overflow=300)
         thread_pool_init(command=P22, name=thread_cmd_name)
     sa.run_random_climb()
     sa.display()
+    sys.exit(0)
