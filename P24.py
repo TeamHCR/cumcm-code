@@ -107,7 +107,7 @@ P4[c_, crot_] := ((Sum[(c * (l'[t]^2) + crot * (ga'[t]^2)) * dim, {t, start, sto
     Ib[t]*th2''[t] == Mpto[t,crot] + Fab[t]*l[t],
     M*zg''[t] == Fwave[t] + Fj[t] - M*g - Fpto[t,c]*Cos[th2[t]] - Fab[t]*Sin[th2[t]] - m0*zg''[t] - c0*zg'[t],
     Ia*th''[t] == Mwave[t] - Mpto[t,crot] + Fab[t]*d*Cos[th[t]]*Cos[th2[t]] - Fab[t]*d*Sin[th[t]]*Sin[th2[t]] - I0*th''[t] - cr0*th'[t] - Mrec*th[t],
-    th'[0] == th[0] == ga[0] == ga'[0] == l'[0] == zg'[0] == 0, l[0] == l0-m/k, zg[0] == 0}, {th, ga, zg, l}, {t, start, stop}]))'''
+    th'[0] == th[0] == ga[0] == ga'[0] == l'[0] == zg'[0] == 0, l[0] == l0-m/k, zg[0] == 0}, {th, ga, zg, l}, {t, start, stop}]) / (stop - start))'''
 
 queue_task = queue.Queue()
 queue_res = queue.Queue()
