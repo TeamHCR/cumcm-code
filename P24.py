@@ -84,9 +84,9 @@ Fpto[t_, c_] := -k*(l[t] - l0) - c*l'[t];
 (* PTO系统的力矩 *)
 Mpto[t_, crot_] := -krot*ga[t] - crot*ga'[t];
 
-start = 300;
-stop = start + 10;
-dim = 1;
+start = 200;
+stop = start + 20 / w;
+dim = 0.1;
 
 P4[c_, crot_] := Sum[(c * (l'[t]^2) + crot * (ga'[t]^2)) * dim, {t, start, stop, dim}] /. NDSolve[{
     m*xp''[t] == -Fpto[t,c]*Sin[th2[t]] + Fab[t]*Cos[th2[t]], 
@@ -231,7 +231,7 @@ def func(x, y):
 ERR_RAND = 0
 
 class SA:
-    def __init__(self, func, iter=thread_num, T0=thread_num, Tf=10, alpha=0.99, x_range=None, y_range=None, sx=None, sy=None):
+    def __init__(self, func, iter=thread_num, T0=thread_num, Tf=10, alpha=0.99, x_range=None, y_range=None, sx=None, sy=None, overflow=5):
         self.func = func
         self.iter = iter  # 内循环迭代次数
         self.alpha = alpha  # 降温系数
@@ -254,6 +254,7 @@ class SA:
         self.count = 0
         self.time_start = 0
         self.time_stop = 0
+        self.overflow = overflow
 
     def generate_new(self, x, y):  # 扰动产生新解的过程
         global ERR_RAND
@@ -389,6 +390,7 @@ class SA:
         self.start_run_perf()
         last_f = parallel_evaluate([self.func(self.sx, self.sy)])[0]
         print("start:", f"F={last_f}, x={self.sx}, y={self.sy}")
+        over = 0
         try:
             while self.T > self.Tf:
                 new_pos = self.generate_directions()
@@ -407,10 +409,15 @@ class SA:
                         self.sy = new_pos[i][1]
                 if max_index < 0:
                     # print(f"NO WAY! last={last_f}, new_results={new_results}")
+                    if over > self.overflow:
+                        print("Overflows!")
+                        break
+                    over += 1
                     pass
                 else:
-                    print("Temp now:", self.T,
+                    print("update:", self.T,
                           f"F={last_f}, tot={tot}, x={self.sx}, y={self.sy}, count={self.count}")
+                    over = 0
                 self.T = self.T * self.alpha
                 self.count += 1
 
@@ -423,8 +430,8 @@ class SA:
 session_g = WolframLanguageSession() if not use_parallelize else None
 
 if __name__ == '__main__':
-    # P_name = "P4"
-    P_name = "P22"
+    P_name = "P4"
+    # P_name = "P22"
     if P_name == "P4":
         # x=32241.41596050716, y=100000, F=2979.836002974773
         # Temp now: 13.7214 F=1726.2186418442523, tot=43, x=42227.56762547424, y=28799.10473477897, count=2
@@ -439,7 +446,8 @@ if __name__ == '__main__':
         # sa = SA(func, x_range=[0, 100000], y_range=[0, 1], Tf=1e-1)
         
         # Temp now: 2.869050937515369 F=2401.167153960724, tot=2753, x=36669.47581079803, y=0, count=171
-        sa = SA(func, x_range=[0, 100000], y_range=[0, 1], Tf=1e-1, sx=36669.47581079803, sy=0.01)
+        # Temp now: 0.5631703523340716 F=2286.161260850864, tot=5345, x=36235.00330104634, y=0, count=333
+        sa = SA(func, x_range=[0, 100000], y_range=[0, 1], Tf=1e-2, sx=36235.4455663941, sy=0.01)
     thread_pool_init(command=P4 if P_name == "P4" else P22, name=P_name)
     sa.run_random_climb()
     sa.display()
