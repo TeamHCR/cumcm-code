@@ -473,8 +473,8 @@ if __name__ == '__main__':
         sa = SA(func, x_range=[0, 100000], y_range=[0, 1], Tf=1e-2, overflow=300, sx=37267.434515546855)
         thread_pool_init(command=P21, name=thread_cmd_name)
     else:  # 22
-        
-        sa = SA(func, x_range=[0, 100000], y_range=[0, 1], Tf=1e-2, sx=36250.469554020114, sy=1.954631736700019e-06, overflow=300)
+        # update: 9.392588510999751 F=231.1734673493091, tot=865, x=100000, y=0.4156291981028539, count=53
+        sa = SA(func, x_range=[0, 100000], y_range=[0, 1], Tf=1e-2, sx=100000, sy=0.4156291981028539, overflow=300)
         thread_pool_init(command=P22, name=thread_cmd_name)
     sa.run_random_climb()
     sa.display()
