@@ -139,6 +139,7 @@ def thread_run(command, name):
             print(e, threading.current_thread())
             queue_res.put({'id': -1, "ok": False})
             continue
+    session.stop()
     if thread_running:
         print("thread exit!", threading.current_thread())
 
@@ -338,18 +339,18 @@ class SA:
                 self.T = self.T * self.alpha
                 print("Temp now:", self.T,
                     f"F={ft}, tot={tot}, x={self.x[idx]}, y={self.y[idx]}")
-                count += 1
+                self.count += 1
 
             # 得到最优解
             f_best, idx = self.best()
             if f_best < self.best_F:
                 print(
-                    f"F={f_best}, x={self.x[idx]}, y={self.y[idx]}, count={count}")
+                    f"F={f_best}, x={self.x[idx]}, y={self.y[idx]}, count={self.count}")
             else:
                 print(
-                    f"F={self.best_F}, x={self.best_res[0]}, y={self.best_res[1]}, count={count}")
+                    f"F={self.best_F}, x={self.best_res[0]}, y={self.best_res[1]}, count={self.count}")
         except KeyboardInterrupt:
-            pass
+            thread_pool_exit()
         self.stop_run_perf()
 
     def run_random_climb(self):
@@ -376,11 +377,20 @@ class SA:
                     pass
                 else:
                     print("Temp now:", self.T,
-                          f"F={last_f}, tot={tot}, x={self.sx}, y={self.sy}")
+                          f"F={last_f}, tot={tot}, x={self.sx}, y={self.sy}, count={self.count}")
                 self.T = self.T * self.alpha
-                count += 1
+                self.count += 1
 
             print(f"x={self.sx}, y={self.sy}, F={last_f}")
         except KeyboardInterrupt:
-            pass
+            thread_pool_exit()
         self.stop_run_perf()
+
+
+if __name__ == '__main__':
+    # x=32241.41596050716, y=100000, F=2979.836002974773
+    thread_num = 7
+    thread_pool_init(command=P3, name="P3")
+    sa = SA(func, x_range=[20000, 40000], y_range=[90000, 100000], Tf=10, sx=32241.41596050716, sy=100000)
+    sa.run_random_climb()
+    sa.display()
