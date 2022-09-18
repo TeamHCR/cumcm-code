@@ -6,15 +6,16 @@ from wolframclient.language import wl, wlexpr
 import matplotlib.pyplot as plt
 import random
 import math
+from functools import reduce
 import nest_asyncio
 nest_asyncio.apply()
 # from wolframclient.evaluation import parallel_evaluate
 
 P22 = """
 Clear["Global`*"];
-start = 510; stop = 520; dim = 1;
 M = 4866; m = 2433; k = 80000; c = 10000; omega = 2.2143; k1 = 1025 * 9.8 * Pi;
 f = 4890; c0 = 167.8395; m0 = 1165.992;
+start = 110; stop = start + 20 * 1 / omega; dim = 0.1;
 cmv2[v_, ck_, ce_] := ck * Abs[v]^ce;
 P22I[ck_, ce_] := NDSolve[{m*x2''[t]==k*(x1[t]-x2[t])+cmv2[x1'[t]-x2'[t], ck, ce]*(x1'[t]-x2'[t]), 
     f*Cos[omega * t]==k*(x1[t]-x2[t])+cmv2[x1'[t]-x2'[t], ck, ce]*(x1'[t]-x2'[t])+k1*x1[t]+c0*x1'[t]+m0*x1''[t]+M*x1''[t], 
@@ -98,13 +99,13 @@ P4[c_, crot_] := Sum[(c * (l'[t]^2) + crot * (ga'[t]^2)) * dim, {t, start, stop,
 queue_task = queue.Queue()
 queue_res = queue.Queue()
 
-random.seed(114514)
+random.seed(1145141919)
 tot = 0
 threads = []
-thread_num = 14
+thread_num = 16
 thread_running = False
-thread_cmd_name = "P2"
-thread_command = "P2"
+thread_cmd_name = "P22"
+thread_command = "P22"
 
 # use_parallelize = True
 use_parallelize = False
@@ -201,13 +202,22 @@ def parallel_evaluate(exps, retry=0, **kwargs):
     else:
         # print("exps", exps)
         task = "{i[[1]],First[%s[i[[2]],i[[3]]]]}" % thread_cmd_name
-        values = ["{%s,%s,%s}" % (i, *exps[i]) for i in range(len(exps))]
+        values = ["{%s,%f,%f}" % (i, *exps[i]) for i in range(len(exps))]
         text = "Parallelize[Table[%s, {i, {%s}}]]" % (task, ','.join(values))
         # print(text)
         results = list(session_g.evaluate(wlexpr(text)))
         # print("result", results)
         results.sort(key=lambda x: x[0])
         res = [r[1] for r in results]
+        # print([isinstance(r, float) for r in res])
+        all_ok = sum([0 if isinstance(r, float) else 1 for r in res]) == 0
+        if not all_ok:
+            print(f"retry({retry}): {exps}")
+            if retry >= 3:
+                print(res)
+                raise Exception("Has failed data!!!")
+            else:
+                return parallel_evaluate(exps, retry=retry + 1)
         # print("res", res)
         return res
 
@@ -413,13 +423,23 @@ class SA:
 session_g = WolframLanguageSession() if not use_parallelize else None
 
 if __name__ == '__main__':
-    # x=32241.41596050716, y=100000, F=2979.836002974773
-    # Temp now: 13.7214 F=1726.2186418442523, tot=43, x=42227.56762547424, y=28799.10473477897, count=2
-    
-    # Temp now: 8.218514947124781 F=1727.2570404255514, tot=325, x=43715.00058345546, y=25654.693610991686, count=53
-    thread_num = 6
-    thread_pool_init(command=P4, name="P4")
-    # sa = SA(func, x_range=[20000, 40000], y_range=[90000, 100000], Tf=10, sx=32241.41596050716, sy=100000)
-    sa = SA(func, x_range=[0, 100000], y_range=[0, 100000], Tf=1e-1, sx=43715.00058345546, sy=25654.693610991686)
+    # P_name = "P4"
+    P_name = "P22"
+    if P_name == "P4":
+        # x=32241.41596050716, y=100000, F=2979.836002974773
+        # Temp now: 13.7214 F=1726.2186418442523, tot=43, x=42227.56762547424, y=28799.10473477897, count=2
+        # Temp now: 8.218514947124781 F=1727.2570404255514, tot=325, x=43715.00058345546, y=25654.693610991686, count=53
+        if use_parallelize:
+            thread_num = 6
+        # sa = SA(func, x_range=[0, 100000], y_range=[0, 100000], Tf=1e-1, sx=43715.00058345546, sy=25654.693610991686)
+        sa = SA(func, x_range=[0, 100000], y_range=[0, 100000], Tf=1e-1)
+    else:
+        # start: F=2547.6755617509302, x=100000, y=0.44880933129114925
+        # Temp now: 0.09968820536089253 F=2547.6757122465424, tot=6889, x=100000, y=0.449095895045575, count=492
+        # sa = SA(func, x_range=[0, 100000], y_range=[0, 1], Tf=1e-1)
+        
+        # Temp now: 2.869050937515369 F=2401.167153960724, tot=2753, x=36669.47581079803, y=0, count=171
+        sa = SA(func, x_range=[0, 100000], y_range=[0, 1], Tf=1e-1, sx=36669.47581079803, sy=0.01)
+    thread_pool_init(command=P4 if P_name == "P4" else P22, name=P_name)
     sa.run_random_climb()
     sa.display()
