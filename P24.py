@@ -103,7 +103,11 @@ tot = 0
 threads = []
 thread_num = 14
 thread_running = False
+thread_cmd_name = "P2"
+thread_command = "P2"
 
+# use_parallelize = True
+use_parallelize = False
 
 def thread_run(command, name):
     # print("thread start:", threading.current_thread())
@@ -148,47 +152,64 @@ def thread_pool_init(command=P22, name="P22"):
     global tot
     global threads
     global thread_running
+    global thread_cmd_name
+    global thread_command
     thread_running = True
     tot = 0
-    threads = [threading.Thread(target=thread_run, daemon=True, args=(
-        command, name)) for _ in range(thread_num)]
-    # [t.setDaemon(True) for t in threads]
-    [t.start() for t in threads]
+    thread_cmd_name = name
+    thread_command = command
+    if use_parallelize:
+        threads = [threading.Thread(target=thread_run, daemon=True, args=(
+            command, name)) for _ in range(thread_num)]
+        [t.start() for t in threads]
+    else:
+        session_g.evaluate(command)
     print("thread_pool_init done")
-
 
 def thread_pool_exit():
     global thread_running
     global threads
     thread_running = False
-    [t.join() for t in threads]
+    # [t.join() for t in threads]
 
 
 def parallel_evaluate(exps, retry=0, **kwargs):
-    # print("parallel_evaluate", exps)
-    exps = [(*exps[i], i) for i in range(len(exps))]
-    [queue_task.put(i) for i in exps]
-    results = [queue_res.get(block=True) for _ in range(len(exps))]
-    failed = [it['id'] for it in results if not it['ok']]
-    if len(failed) > 0:
-        [queue_task.put(exps[failed[i]])
-         for i in range(len(failed)) if failed[i] > 0]
-        results2 = [queue_res.get(block=True, timeout=15)
-                    for _ in range(len(failed))]
-        results = [it for it in results if it['ok']]
-        results.extend(results2)
-    failed = [it['id'] for it in results if not it['ok']]
-    # results = [queue_res.get(block=True, timeout=15) for _ in range(len(exps))]
-    results.sort(key=lambda x: x['id'])
-    res = [it['res'] for it in results if it['id'] >= 0 and it['ok']]
-    if len(failed) > 0 or len(results) != len(exps):
-        # time.sleep(2)
-        print(res, failed)
-        if retry >= 3:
-            raise Exception("Has failed data!!!")
-        else:
-            return parallel_evaluate(exps, retry=retry + 1)
-    return res
+    if use_parallelize:
+        exps = [(*exps[i], i) for i in range(len(exps))]
+        [queue_task.put(i) for i in exps]
+        results = [queue_res.get(block=True) for _ in range(len(exps))]
+        failed = [it['id'] for it in results if not it['ok']]
+        if len(failed) > 0:
+            [queue_task.put(exps[failed[i]])
+            for i in range(len(failed)) if failed[i] > 0]
+            results2 = [queue_res.get(block=True, timeout=15)
+                        for _ in range(len(failed))]
+            results = [it for it in results if it['ok']]
+            results.extend(results2)
+        failed = [it['id'] for it in results if not it['ok']]
+        # results = [queue_res.get(block=True, timeout=15) for _ in range(len(exps))]
+        results.sort(key=lambda x: x['id'])
+        res = [it['res'] for it in results if it['id'] >= 0 and it['ok']]
+        if len(failed) > 0 or len(results) != len(exps):
+            # time.sleep(2)
+            print(res, failed)
+            if retry >= 3:
+                raise Exception("Has failed data!!!")
+            else:
+                return parallel_evaluate(exps, retry=retry + 1)
+        return res
+    else:
+        # print("exps", exps)
+        task = "{i[[1]],First[%s[i[[2]],i[[3]]]]}" % thread_cmd_name
+        values = ["{%s,%s,%s}" % (i, *exps[i]) for i in range(len(exps))]
+        text = "Parallelize[Table[%s, {i, {%s}}]]" % (task, ','.join(values))
+        # print(text)
+        results = list(session_g.evaluate(wlexpr(text)))
+        # print("result", results)
+        results.sort(key=lambda x: x[0])
+        res = [r[1] for r in results]
+        # print("res", res)
+        return res
 
 
 def func(x, y):
@@ -249,23 +270,24 @@ class SA:
     def generate_directions(self):
         x, y = self.sx, self.sy
 
-        def d(r): return self.T / self.T0 * r * 1 + 1 * \
-            (random.random() - random.random()) * r
+        def d(r): return self.T / self.T0 * r * (random.random() - random.random())
         dirs = [[1, 0], [0, 1], [-1, 0], [0, -1]]
         ds = [(di[0] * d(self.x_range[1] - self.x_range[0]), di[1] *
                d(self.y_range[1] - self.y_range[0])) for di in dirs]
 
         def apply(dd):
+            # print("dd", dd, "s", (self.sx, self.sy))
             x_new, y_new = dd[0] + x, dd[1] + y
             x_new = max(x_new, self.x_range[0])
             x_new = min(x_new, self.x_range[1])
             y_new = max(y_new, self.y_range[0])
             y_new = min(y_new, self.y_range[1])
             return (x_new, y_new)
-        res_dir = [apply(dd) for dd in ds]
+        # res_dir = [apply(dd) for dd in ds]
+        res_dir = []
         dscar = 0.3
         res_dir.extend([apply((dscar*d(self.x_range[1] - self.x_range[0]), dscar *
-                       d(self.y_range[1] - self.y_range[0]))) for _ in range(thread_num-4)])
+                       d(self.y_range[1] - self.y_range[0]))) for _ in range(thread_num-len(res_dir))])
         return res_dir
 
     # Metropolis准则
@@ -386,11 +408,14 @@ class SA:
             thread_pool_exit()
         self.stop_run_perf()
 
+session_g = WolframLanguageSession() if not use_parallelize else None
 
 if __name__ == '__main__':
     # x=32241.41596050716, y=100000, F=2979.836002974773
+    # Temp now: 13.7214 F=1726.2186418442523, tot=43, x=42227.56762547424, y=28799.10473477897, count=2
     thread_num = 6
     thread_pool_init(command=P4, name="P4")
-    sa = SA(func, x_range=[20000, 40000], y_range=[90000, 100000], Tf=10, sx=32241.41596050716, sy=100000)
+    # sa = SA(func, x_range=[20000, 40000], y_range=[90000, 100000], Tf=10, sx=32241.41596050716, sy=100000)
+    sa = SA(func, x_range=[0, 100000], y_range=[0, 100000], Tf=1e-1, sx=42227.56762547424, sy=28799.10473477897)
     sa.run_random_climb()
     sa.display()
